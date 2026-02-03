@@ -37,6 +37,9 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+
+    # django only loads apps listed in INSTALLED_APPS, so must add any new app
+    'attendees',
 ]
 
 MIDDLEWARE = [
