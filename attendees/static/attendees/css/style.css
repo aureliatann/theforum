@@ -1,0 +1,124 @@
+/* General Page Styles */
+body {
+    font-family: Arial, sans-serif;
+    line-height: 1.4;      /* tighter line spacing */
+    margin: 0;
+    padding: 0;
+    background-color: #f9f9f9;
+    color: #0a0a0a;        /* very dark blue/almost black */
+}
+
+/* Container */
+.container {
+    max-width: 650px;       /* slightly thinner */
+    margin: 20px auto;      /* center horizontally */
+    padding: 20px;
+    background-color: #fff; 
+    box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+    border-radius: 10px;
+}
+
+/* Banner inside container */
+.banner {
+    width: 100%;
+    margin-bottom: 15px;   /* tighter spacing */
+}
+
+.banner-img {
+    width: 100%;        
+    height: auto;       
+    display: block;
+    border-radius: 10px;
+    object-fit: cover;
+}
+
+/* Headings */
+h2 {
+    color: #0a0a0a;    
+    margin-top: 20px;
+    margin-bottom: 10px;
+    font-size: 1.6rem;
+}
+
+/* Paragraphs */
+p {
+    margin-bottom: 10px;   /* tighter spacing */
+    font-size: 1rem;
+    color: #0a0a0a; 
+}
+
+/* Horizontal line */
+hr {
+    margin: 20px 0;
+    border: none;
+    border-top: 1px solid #ddd;
+}
+
+/* Form Styles */
+form label {
+    font-weight: bold;
+    display: block;
+    margin-bottom: 5px;
+}
+
+/* Form row for first + last name */
+.form-row {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 10px;
+}
+
+.form-row > div {
+    flex: 1;             /* make each half width */
+}
+
+/* Form inputs */
+form input[type="text"],
+form input[type="email"] {
+    width: 100%;
+    padding: 8px;         /* smaller padding */
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-sizing: border-box;
+    font-size: 1rem;
+}
+
+/* Submit Button */
+.submit-btn {
+    background-color: #b53335; /* accent red */
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    font-size: 1rem;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-top: 10px;
+    transition: background-color 0.3s ease;
+}
+
+.submit-btn:hover {
+    background-color: #8a2629; 
+}
+
+/* Emoji styling */
+p strong {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+}
+
+/* Responsive */
+@media (max-width: 600px) {
+    .container {
+        padding: 15px;
+        margin: 15px;
+    }
+
+    h2 {
+        font-size: 1.4rem;
+    }
+
+    .form-row {
+        flex-direction: column; /* stack first/last name on mobile */
+    }
+}

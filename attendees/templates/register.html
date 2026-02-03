@@ -1,16 +1,54 @@
+{% load static %}
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
+    <meta charset="UTF-8">
     <title>Register for The Forum</title>
+    <link rel="stylesheet" href="{% static 'attendees/css/style.css' %}">
 </head>
 <body>
-    <h2>Register for The Forum</h2>
 
-    <!-- form where users enter name and email -->
-    <form method="POST">
-        {% csrf_token %} <!-- security token to protect against attacks (django requires this in POST form) -->
-        {{ form.as_p }}  <!-- renders django form as HTML paragraphs -->
-        <button type="submit">Submit</button>   <!-- submit button, sends form to server when clicked -->
-    </form>
+    <!-- Container (includes banner) -->
+    <div class="container">
+
+        <!-- Banner -->
+        <div class="banner">
+            <img src="{% static 'attendees/images/banner.jpeg' %}" alt="The Forum 2026" class="banner-img">
+        </div>
+
+        <!-- Event Info -->
+        <h2>What is The Forum?</h2>
+        <p>The Forum is an annual talk show that provides a platform for Indonesian students to engage with experts and public figures on issues related to Indonesia's politics, economy, and society.</p>
+        
+        <h2>Event Details</h2>
+        <p><strong>🗓️ Date:</strong> Sunday, April 12, 2026</p>
+        <p><strong>⏱️ Open Gate:</strong> 5:00 PM AEST</p>
+        <p><strong>📍 Location:</strong> Copland Theatre (B01), The Spot, The University of Melbourne</p>
+
+        <hr>
+
+        <!-- Registration Form -->
+        <h2>Register for The Forum 2026</h2>
+        <form method="POST">
+            {% csrf_token %}
+
+            <div class="form-row">
+                <div>
+                    <label for="{{ form.first_name.id_for_label }}">First Name:</label>
+                    {{ form.first_name }}
+                </div>
+                <div>
+                    <label for="{{ form.last_name.id_for_label }}">Last Name:</label>
+                    {{ form.last_name }}
+                </div>
+            </div>
+
+            <label for="{{ form.email.id_for_label }}">Email:</label>
+            {{ form.email }}
+
+            <button type="submit" class="submit-btn">Submit</button>
+        </form>
+    </div> <!-- End container -->
+
 </body>
 </html>
