@@ -7,5 +7,5 @@ class AttendeeForm(forms.ModelForm):
 
     # meta tells django what model and fields form uses (configuration section)
     class Meta:
-        model = Attendee            # use Attendee model
-        fields = ['name', 'email']  # only show name and email in form
+        model = Attendee  # use Attendee model
+        fields = ['first_name', 'last_name', 'email'] # only show name and email in form

@@ -16,8 +16,10 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
+from django.views.generic import RedirectView
 
 urlpatterns = [
     path('admin/', admin.site.urls),        # default admin URL
     path('', include('attendees.urls')),    # connects app URLs (so now register and success URLs will work)
+    path('', RedirectView.as_view(url='/register/')),  # redirect root to register
 ]

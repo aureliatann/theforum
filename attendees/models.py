@@ -5,10 +5,9 @@ from django.db import models
 # model -> a table in the database
 # each attribute -> a column inside the table
 
-class Attendee(models.Model):                                   # creating new database table called Attendee
-    name = models.CharField(max_length=100)                     # text field for name
-    email = models.EmailField(unique=True)                      # email field, unique=True means 2 people cannot register with same email
-    registered_at = models.DateTimeField(auto_now_add=True)     # automatically stores time registered
-
-    def __str__(self):      # makes admin panel show name instead of "Attendee object"
-        return self.name
+# creating new database table called Attendee
+class Attendee(models.Model):
+    first_name = models.CharField(max_length=50)
+    last_name = models.CharField(max_length=50)
+    email = models.EmailField()  # no unique=True -> duplicate emails allowed
+    registered_at = models.DateTimeField(auto_now_add=True)  # automatically stores timestamp
