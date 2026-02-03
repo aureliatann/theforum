@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Register for The Forum</title>
+</head>
+<body>
+    <h2>Register for The Forum</h2>
+
+    <!-- form where users enter name and email -->
+    <form method="POST">
+        {% csrf_token %} <!-- security token to protect against attacks (django requires this in POST form) -->
+        {{ form.as_p }}  <!-- renders django form as HTML paragraphs -->
+        <button type="submit">Submit</button>   <!-- submit button, sends form to server when clicked -->
+    </form>
+</body>
+</html>
