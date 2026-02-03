@@ -1,32 +1,44 @@
 /* General Page Styles */
 body {
     font-family: Arial, sans-serif;
-    line-height: 1.4;      /* tighter line spacing */
+    line-height: 1.4;
     margin: 0;
     padding: 0;
     background-color: #f9f9f9;
-    color: #0a0a0a;        /* very dark blue/almost black */
+    color: #0a0a0a;
+
+    /* Center container vertically & horizontally */
+    display: flex;
+    justify-content: center; /* horizontal center */
+    align-items: center;     /* vertical center */
+    min-height: 100vh;       /* full viewport height */
 }
 
 /* Container */
 .container {
-    max-width: 650px;       /* slightly thinner */
-    margin: 20px auto;      /* center horizontally */
+    max-width: 600px;          
     padding: 20px;
     background-color: #fff; 
-    box-shadow: 0 4px 10px rgba(0,0,0,0.05);
-    border-radius: 10px;
+    border-radius: 12px;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+    transition: all 0.3s ease;
+    margin: 0; /* remove default margin, flex handles centering */
 }
 
-/* Banner inside container */
+.container:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 12px 25px rgba(0,0,0,0.2);
+}
+
+/* Banner */
 .banner {
     width: 100%;
-    margin-bottom: 15px;   /* tighter spacing */
+    margin-bottom: 15px;
 }
 
 .banner-img {
-    width: 100%;        
-    height: auto;       
+    width: 100%;
+    height: auto;
     display: block;
     border-radius: 10px;
     object-fit: cover;
@@ -42,7 +54,7 @@ h2 {
 
 /* Paragraphs */
 p {
-    margin-bottom: 10px;   /* tighter spacing */
+    margin-bottom: 10px;
     font-size: 1rem;
     color: #0a0a0a; 
 }
@@ -54,14 +66,7 @@ hr {
     border-top: 1px solid #ddd;
 }
 
-/* Form Styles */
-form label {
-    font-weight: bold;
-    display: block;
-    margin-bottom: 5px;
-}
-
-/* Form row for first + last name */
+/* Form row */
 .form-row {
     display: flex;
     gap: 10px;
@@ -69,49 +74,74 @@ form label {
 }
 
 .form-row > div {
-    flex: 1;             /* make each half width */
+    flex: 1;
 }
 
 /* Form inputs */
-form input[type="text"],
-form input[type="email"] {
+.form-input {
     width: 100%;
-    padding: 8px;         /* smaller padding */
+    padding: 8px;
     border: 1px solid #ccc;
     border-radius: 5px;
     box-sizing: border-box;
     font-size: 1rem;
 }
 
-/* Submit Button */
+.form-input::placeholder {
+    color: #999;
+    opacity: 1;
+    font-style: italic;
+}
+
+/* Buttons wrapper for centering */
+.button-container {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+}
+
+/* Buttons */
 .submit-btn {
-    background-color: #b53335; /* accent red */
+    background-color: #b53335;
     color: #fff;
     border: none;
-    padding: 10px 20px;
+    padding: 10px 25px;
     font-size: 1rem;
-    border-radius: 5px;
+    border-radius: 20px; /* slightly higher radius */
     cursor: pointer;
-    margin-top: 10px;
-    transition: background-color 0.3s ease;
+    text-align: center;
+    text-decoration: none;
+    transition: all 0.3s ease;
+    min-width: 200px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
 }
 
 .submit-btn:hover {
-    background-color: #8a2629; 
+    background-color: #8a2629;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 12px rgba(0,0,0,0.15);
 }
 
-/* Emoji styling */
-p strong {
-    display: inline-flex;
-    align-items: center;
-    gap: 5px;
+/* Fade-in animation */
+.fade-enter {
+    opacity: 0;
+    transform: translateY(10px);
+    transition: opacity 0.5s ease, transform 0.5s ease;
+}
+
+.fade-enter-active {
+    opacity: 1;
+    transform: translateY(0);
 }
 
 /* Responsive */
 @media (max-width: 600px) {
+    body {
+        padding: 10px;
+    }
+
     .container {
         padding: 15px;
-        margin: 15px;
     }
 
     h2 {
@@ -119,6 +149,6 @@ p strong {
     }
 
     .form-row {
-        flex-direction: column; /* stack first/last name on mobile */
+        flex-direction: column;
     }
 }

@@ -8,7 +8,9 @@
 </head>
 <body>
 
-    <!-- Container (includes banner) -->
+<!-- Fade container -->
+<div class="fade-enter" id="page-container">
+
     <div class="container">
 
         <!-- Banner -->
@@ -29,26 +31,47 @@
 
         <!-- Registration Form -->
         <h2>Register for The Forum 2026</h2>
-        <form method="POST">
+        <form method="POST" id="registration-form">
             {% csrf_token %}
 
             <div class="form-row">
                 <div>
-                    <label for="{{ form.first_name.id_for_label }}">First Name:</label>
                     {{ form.first_name }}
                 </div>
                 <div>
-                    <label for="{{ form.last_name.id_for_label }}">Last Name:</label>
                     {{ form.last_name }}
                 </div>
             </div>
 
-            <label for="{{ form.email.id_for_label }}">Email:</label>
-            {{ form.email }}
+            <div>
+                {{ form.email }}
+            </div>
 
-            <button type="submit" class="submit-btn">Submit</button>
+            <div class="button-container">
+                <button type="submit" class="submit-btn">Submit</button>
+            </div>
+
         </form>
+
     </div> <!-- End container -->
+</div>
+
+<!-- Fade-in / Fade-out script -->
+<script>
+document.addEventListener("DOMContentLoaded", function() {
+    const page = document.getElementById("page-container");
+    page.classList.add("fade-enter-active");
+
+    const form = document.getElementById("registration-form");
+    form.addEventListener("submit", function(e) {
+        e.preventDefault(); // prevent instant submit
+        page.style.transition = "opacity 0.5s ease, transform 0.5s ease";
+        page.style.opacity = 0;
+        page.style.transform = "translateY(-10px)";
+        setTimeout(() => form.submit(), 500); // submit after fade
+    });
+});
+</script>
 
 </body>
 </html>

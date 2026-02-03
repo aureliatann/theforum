@@ -11,8 +11,8 @@ def register(request):
         form = AttendeeForm(request.POST)   # loads the dat athe user typed into django form
         # django checks that name isn't empty and email is in valid format
         if form.is_valid():
-            form.save()  # saves name and email to the database
-            return redirect('success')  # goes to success page
+            attendee = form.save()  # save and get instance
+            return render(request, 'success.html', {'attendee_email': attendee.email})
     else:
         # user's first time visiting (GET request) -> show empty form
         form = AttendeeForm()

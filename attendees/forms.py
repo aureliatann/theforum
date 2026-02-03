@@ -9,3 +9,18 @@ class AttendeeForm(forms.ModelForm):
     class Meta:
         model = Attendee  # use Attendee model
         fields = ['first_name', 'last_name', 'email'] # only show name and email in form
+        # widgets lets customize each field's HTML
+        widgets = {
+            'first_name': forms.TextInput(attrs={
+                'placeholder': 'First Name',
+                'class': 'form-input'
+            }),
+            'last_name': forms.TextInput(attrs={
+                'placeholder': 'Last Name',
+                'class': 'form-input'
+            }),
+            'email': forms.EmailInput(attrs={
+                'placeholder': 'Email Address',
+                'class': 'form-input'
+            }),
+        }

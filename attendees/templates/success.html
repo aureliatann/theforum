@@ -1,13 +1,45 @@
+{% load static %}
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
+    <meta charset="UTF-8">
     <title>Registration Successful</title>
+    <link rel="stylesheet" href="{% static 'attendees/css/style.css' %}">
 </head>
 <body>
-    <h2>Registration Successful!</h2>
-    <p>Your information has been recorded. Thank you!</p>
 
-    <!-- link to go back to registration form -->
-    <a href="/register/">Register another attendee</a>
+<div class="fade-enter" id="page-container">
+
+    <div class="container">
+
+        <!-- Banner -->
+        <div class="banner">
+            <img src="{% static 'attendees/images/banner.jpeg' %}" alt="The Forum 2026" class="banner-img">
+        </div>
+
+        <!-- Success Message -->
+        <h2>Registration Successful</h2>
+        <p>
+            Thank you for registering for The Forum 2026. 
+            An email with your ticket has been sent to 
+            <strong>{{ attendee_email }}</strong>.
+        </p>
+
+        <!-- Back Button -->
+        <div class="button-container">
+            <a href="/register/" class="submit-btn">Register another attendee</a>
+        </div>
+
+    </div> <!-- End container -->
+</div>
+
+<script>
+document.addEventListener("DOMContentLoaded", function() {
+    const page = document.getElementById("page-container");
+    // tiny timeout ensures the browser paints the page with opacity 0 first
+    setTimeout(() => page.classList.add("fade-enter-active"), 50);
+});
+</script>
+
 </body>
 </html>
