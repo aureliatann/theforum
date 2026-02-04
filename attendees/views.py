@@ -2,19 +2,46 @@
 from django.shortcuts import render, redirect
 from .forms import AttendeeForm
 
-# email imports
+# Email imports
 from django.core.mail import EmailMultiAlternatives
 from django.conf import settings
 
+# PDF imports
+from PyPDF2 import PdfReader, PdfWriter
+from reportlab.pdfgen import canvas
+from reportlab.lib.pagesizes import letter
+from io import BytesIO
+import os
+
 def register(request):
-    # If POST (user submits form)
     if request.method == "POST":
         form = AttendeeForm(request.POST)
 
         if form.is_valid():
             attendee = form.save()  # Save attendee
 
+            # -----------------------------
+            # Load PDF template (no writing, no PyPDF2)
+            # -----------------------------
+            template_path = os.path.join(
+                settings.BASE_DIR,
+                "attendees",
+                "static",
+                "attendees",
+                "pdfs",
+                "eticket_template_2025.pdf"
+            )
+
+            if not os.path.exists(template_path):
+                raise FileNotFoundError(f"PDF template not found at {template_path}")
+
+            # Read PDF as raw bytes
+            with open(template_path, "rb") as f:
+                pdf_bytes = f.read()
+
+            # -----------------------------
             # Email subject + sender + recipient
+            # -----------------------------
             subject = "Registration Confirmation – The Forum 2026"
             from_email = settings.EMAIL_HOST_USER
             to = attendee.email
@@ -69,14 +96,16 @@ Warm regards,<br>
 </p>
 """
 
-            # Build the email
+            # -----------------------------
+            # Build and send email with PDF attached
+            # -----------------------------
             msg = EmailMultiAlternatives(subject, text_content, from_email, [to])
             msg.attach_alternative(html_content, "text/html")
+            msg.attach(f"{attendee.first_name}_eticket.pdf", pdf_bytes, "application/pdf")
             msg.send()  # Send email
 
             return render(request, 'success.html', {'attendee_email': attendee.email})
 
-    # GET request – show empty form
     else:
         form = AttendeeForm()
 
