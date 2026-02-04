@@ -1,4 +1,6 @@
 {% load static %}
+{% load widget_tweaks %}
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -7,6 +9,12 @@
     <link rel="stylesheet" href="{% static 'attendees/css/style.css' %}">
 </head>
 <body>
+
+<!-- Loading Overlay -->
+<div class="loading-overlay" id="loading-overlay">
+    <div class="spinner"></div>
+    <p class="loading-text">Processing your registration…</p>
+</div>
 
 <!-- Fade container -->
 <div class="fade-enter" id="page-container">
@@ -36,15 +44,15 @@
 
             <div class="form-row">
                 <div>
-                    {{ form.first_name }}
+                    {{ form.first_name|add_class:"form-input" }}
                 </div>
                 <div>
-                    {{ form.last_name }}
+                    {{ form.last_name|add_class:"form-input" }}
                 </div>
             </div>
 
             <div>
-                {{ form.email }}
+                {{ form.email|add_class:"form-input" }}
             </div>
 
             <div class="button-container">
@@ -53,22 +61,28 @@
 
         </form>
 
-    </div> <!-- End container -->
+    </div>
 </div>
 
-<!-- Fade-in / Fade-out script -->
+<!-- Fade + Loading Script -->
 <script>
 document.addEventListener("DOMContentLoaded", function() {
     const page = document.getElementById("page-container");
+    const form = document.getElementById("registration-form");
+    const overlay = document.getElementById("loading-overlay");
+
     page.classList.add("fade-enter-active");
 
-    const form = document.getElementById("registration-form");
     form.addEventListener("submit", function(e) {
-        e.preventDefault(); // prevent instant submit
+        e.preventDefault();
+
+        overlay.classList.add("active");
+
         page.style.transition = "opacity 0.5s ease, transform 0.5s ease";
         page.style.opacity = 0;
         page.style.transform = "translateY(-10px)";
-        setTimeout(() => form.submit(), 500); // submit after fade
+
+        setTimeout(() => form.submit(), 400);
     });
 });
 </script>

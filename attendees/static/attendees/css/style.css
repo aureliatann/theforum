@@ -1,4 +1,6 @@
-/* General Page Styles */
+/* ====================
+   GENERAL PAGE STYLES
+   ==================== */
 body {
     font-family: Arial, sans-serif;
     line-height: 1.4;
@@ -7,22 +9,21 @@ body {
     background-color: #f9f9f9;
     color: #0a0a0a;
 
-    /* Center container vertically & horizontally */
     display: flex;
-    justify-content: center; /* horizontal center */
-    align-items: center;     /* vertical center */
-    min-height: 100vh;       /* full viewport height */
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
 }
 
 /* Container */
 .container {
-    max-width: 600px;          
+    max-width: 600px;
     padding: 20px;
-    background-color: #fff; 
+    background-color: #fff;
     border-radius: 12px;
     box-shadow: 0 8px 20px rgba(0,0,0,0.15);
     transition: all 0.3s ease;
-    margin: 0; /* remove default margin, flex handles centering */
+    margin: 0;
 }
 
 .container:hover {
@@ -46,7 +47,7 @@ body {
 
 /* Headings */
 h2 {
-    color: #0a0a0a;    
+    color: #0a0a0a;
     margin-top: 20px;
     margin-bottom: 10px;
     font-size: 1.6rem;
@@ -56,10 +57,10 @@ h2 {
 p {
     margin-bottom: 10px;
     font-size: 1rem;
-    color: #0a0a0a; 
+    color: #0a0a0a;
 }
 
-/* Horizontal line */
+/* Divider */
 hr {
     margin: 20px 0;
     border: none;
@@ -93,24 +94,23 @@ hr {
     font-style: italic;
 }
 
-/* Buttons wrapper for centering */
+/* Button container */
 .button-container {
     display: flex;
     justify-content: center;
     margin-top: 20px;
 }
 
-/* Buttons */
+/* Submit button */
 .submit-btn {
     background-color: #b53335;
     color: #fff;
     border: none;
     padding: 10px 25px;
     font-size: 1rem;
-    border-radius: 20px; /* slightly higher radius */
+    border-radius: 20px;
     cursor: pointer;
     text-align: center;
-    text-decoration: none;
     transition: all 0.3s ease;
     min-width: 200px;
     box-shadow: 0 4px 8px rgba(0,0,0,0.1);
@@ -122,7 +122,15 @@ hr {
     box-shadow: 0 6px 12px rgba(0,0,0,0.15);
 }
 
-/* Fade-in animation */
+.submit-btn,
+.submit-btn:hover,
+.submit-btn:focus {
+    text-decoration: none;
+}
+
+/* ====================
+   FADE ANIMATION
+   ==================== */
 .fade-enter {
     opacity: 0;
     transform: translateY(10px);
@@ -132,6 +140,53 @@ hr {
 .fade-enter-active {
     opacity: 1;
     transform: translateY(0);
+}
+
+/* ====================
+   LOADING OVERLAY
+   ==================== */
+.loading-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(255,255,255,0.8);
+    display: flex;
+    flex-direction: column;  /* STACK spinner + text */
+    align-items: center;     /* center horizontally */
+    justify-content: center; /* center vertically */
+    backdrop-filter: blur(4px);
+    z-index: 9999;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s ease;
+}
+
+.loading-overlay.active {
+    opacity: 1;
+    pointer-events: auto;
+}
+
+.spinner {
+    border: 4px solid #ddd;
+    border-top: 4px solid #b53335;
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+    animation: spin 0.8s linear infinite;
+    margin-bottom: 15px; /* gap between spinner + text */
+}
+
+.loading-text {
+    font-size: 1.2rem;
+    color: #b53335;
+    font-weight: bold;
+    text-align: center;
+}
+
+@keyframes spin {
+    100% { transform: rotate(360deg); }
 }
 
 /* Responsive */
