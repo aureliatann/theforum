@@ -2,54 +2,86 @@
 from django.shortcuts import render, redirect
 from .forms import AttendeeForm
 
-# email function imports
-from django.core.mail import send_mail
+# email imports
+from django.core.mail import EmailMultiAlternatives
 from django.conf import settings
 
-# view -> python function that runs when someone opens a webpage (when use visits this URL, what should website do?)
-
-# this view / function runs whenever someone visits registration page
 def register(request):
-    # if POST (user just submitted the form), need to process and save form
+    # If POST (user submits form)
     if request.method == "POST":
-        form = AttendeeForm(request.POST)   # loads the dat athe user typed into django form
-        # django checks that name isn't empty and email is in valid format
-        if form.is_valid():
-            attendee = form.save()  # save and get instance
+        form = AttendeeForm(request.POST)
 
-            # SEND EMAIL
-            send_mail(
-            subject='Registration Confirmation – The Forum 2026',
-            message=f"""Dear {attendee.first_name},
-            
-            We are pleased to confirm your registration for The Forum 2026. Your e-ticket is attached below.
-            
-            Here are the event details for your reference:
-            
-            🗓️ Date: Sunday, April 12, 2026
-            ⏱️ Open Gate: 5:00 PM AEST
-            📍 Location: Copland Theatre (B01), The Spot, The University of Melbourne
-            
-            We look forward to seeing you at the event and hope you enjoy an engaging and insightful experience.
-            If you have any questions or require further assistance, please feel free to reach out to us anytime.
-            
-            Best regards,
-            The Forum Team
-            """,
-                from_email=settings.EMAIL_HOST_USER,
-                recipient_list=[attendee.email],
-                fail_silently=False,
-            )
-            # EMAIL SENT
+        if form.is_valid():
+            attendee = form.save()  # Save attendee
+
+            # Email subject + sender + recipient
+            subject = "Registration Confirmation – The Forum 2026"
+            from_email = settings.EMAIL_HOST_USER
+            to = attendee.email
+
+            # Plain text fallback
+            text_content = f"""
+Dear {attendee.first_name},
+
+Thank you for registering for The Forum 2026.
+Your e-ticket is attached below.
+
+Event Details:
+- Date: Sunday, April 12, 2026
+- Open Gate: 5:00 PM AEST
+- Location: Copland Theatre (B01), The Spot, The University of Melbourne
+
+Best regards,
+The Forum Team
+"""
+
+            # HTML email content
+            html_content = f"""
+<p>Dear <strong>{attendee.first_name}</strong>,</p>
+
+<p>
+We are pleased to confirm your registration for 
+<strong>The Forum 2026</strong>. Your e-ticket is attached below.
+</p>
+
+<p><strong>Here are the event details for your reference:</strong></p>
+
+<ul>
+    <li><strong>🗓️ Date:</strong> Sunday, April 12, 2026</li>
+    <li><strong>⏱️ Open Gate:</strong> 5:00 PM AEST</li>
+    <li><strong>📍 Location:</strong> Copland Theatre (B01), The Spot,<br>
+        The University of Melbourne</li>
+</ul>
+
+<p>
+If you have any questions or require further assistance, 
+please feel free to contact us anytime.
+</p>
+
+<p>
+We look forward to seeing you at the event and hope you enjoy an 
+engaging and insightful experience.
+</p>
+
+<p>
+Warm regards,<br>
+<strong>The Forum Team</strong>
+</p>
+"""
+
+            # Build the email
+            msg = EmailMultiAlternatives(subject, text_content, from_email, [to])
+            msg.attach_alternative(html_content, "text/html")
+            msg.send()  # Send email
 
             return render(request, 'success.html', {'attendee_email': attendee.email})
+
+    # GET request – show empty form
     else:
-        # user's first time visiting (GET request) -> show empty form
         form = AttendeeForm()
 
-    # render -> show the register HTML
     return render(request, 'register.html', {'form': form})
 
-# when form is saved, show the success HTML
+
 def success(request):
     return render(request, 'success.html')
