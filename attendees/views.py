@@ -13,6 +13,67 @@ from reportlab.lib.pagesizes import letter
 from io import BytesIO
 import os
 
+# -----------------------------
+# PDF helper function
+# -----------------------------
+from PIL import Image
+from reportlab.pdfgen import canvas
+from io import BytesIO
+from PyPDF2 import PdfReader, PdfWriter
+
+def personalize_eticket_from_jpg(jpg_path, name):
+    """
+    Convert a JPG image to PDF and overlay attendee name.
+    Returns a BytesIO object containing the final PDF.
+    """
+    # -----------------------------
+    # Step 1: Convert JPG to PDF
+    # -----------------------------
+    image = Image.open(jpg_path)
+    pdf_bytes = BytesIO()
+    image_rgb = image.convert("RGB")  # ensure it's RGB
+    image_rgb.save(pdf_bytes, format="PDF")
+    pdf_bytes.seek(0)
+
+    # -----------------------------
+    # Step 2: Load PDF and prepare overlay
+    # -----------------------------
+    base_pdf = PdfReader(pdf_bytes)
+    page = base_pdf.pages[0]
+    width = float(page.mediabox.width)
+    height = float(page.mediabox.height)
+
+    # Create overlay with name
+    overlay_stream = BytesIO()
+    can = canvas.Canvas(overlay_stream, pagesize=(width, height))
+    can.setFont("Helvetica-Bold", 24)
+
+    # Adjust these coordinates to position name
+    x = width * 0.5  # center horizontally
+    y = height * 0.2  # 20% from bottom
+    can.drawCentredString(x, y, name)
+    can.save()
+    overlay_stream.seek(0)
+
+    overlay_pdf = PdfReader(overlay_stream)
+    output = PdfWriter()
+
+    # Merge overlay onto base PDF
+    for i in range(len(base_pdf.pages)):
+        page = base_pdf.pages[i]
+        if i < len(overlay_pdf.pages):
+            page.merge_page(overlay_pdf.pages[i])
+        output.add_page(page)
+
+    # Save final PDF to BytesIO
+    final_pdf_stream = BytesIO()
+    output.write(final_pdf_stream)
+    final_pdf_stream.seek(0)
+    return final_pdf_stream
+
+# -----------------------------
+# Views
+# -----------------------------
 def register(request):
     if request.method == "POST":
         form = AttendeeForm(request.POST)
@@ -21,23 +82,30 @@ def register(request):
             attendee = form.save()  # Save attendee
 
             # -----------------------------
-            # Load PDF template (no writing, no PyPDF2)
+            # PDF template path
             # -----------------------------
-            template_path = os.path.join(
-                settings.BASE_DIR,
+            # Path to your JPG template
+            jpg_path = os.path.join(
+                os.path.dirname(os.path.dirname(os.path.abspath(__file__))),  # this points to 'theforum/'
                 "attendees",
                 "static",
                 "attendees",
-                "pdfs",
-                "eticket_template_2025.pdf"
+                "images",
+                "eticket_template_2025.jpg"
             )
 
-            if not os.path.exists(template_path):
-                raise FileNotFoundError(f"PDF template not found at {template_path}")
+            # Generate personalized PDF
+            pdf_file = personalize_eticket_from_jpg(jpg_path, attendee.first_name)
 
-            # Read PDF as raw bytes
-            with open(template_path, "rb") as f:
-                pdf_bytes = f.read()
+            # -----------------------------
+            # Save PDF to Desktop
+            # -----------------------------
+            desktop_path = "/Users/aureliatan/desktop"
+            output_file = os.path.join(desktop_path, f"{attendee.first_name}_eticket.pdf")
+
+            with open(output_file, "wb") as f:
+                f.write(pdf_file.getbuffer())
+
 
             # -----------------------------
             # Email subject + sender + recipient
@@ -99,11 +167,12 @@ Warm regards,<br>
             # -----------------------------
             # Build and send email with PDF attached
             # -----------------------------
+            '''
             msg = EmailMultiAlternatives(subject, text_content, from_email, [to])
             msg.attach_alternative(html_content, "text/html")
-            msg.attach(f"{attendee.first_name}_eticket.pdf", pdf_bytes, "application/pdf")
+            msg.attach(f"{attendee.first_name}_eticket.pdf", pdf_file.read(), "application/pdf")
             msg.send()  # Send email
-
+            '''
             return render(request, 'success.html', {'attendee_email': attendee.email})
 
     else:
