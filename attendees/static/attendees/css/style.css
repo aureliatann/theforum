@@ -192,11 +192,16 @@ hr {
 /* Responsive */
 @media (max-width: 600px) {
     body {
+        flex-direction: column; /* stack content vertically */
+        min-height: auto;       /* let body height adjust */
         padding: 10px;
     }
 
     .container {
+        width: 100%;   /* fill screen width */
+        max-width: none; /* remove 600px limit on small screens */
         padding: 15px;
+        margin: 10px 0; /* small top/bottom margin */
     }
 
     h2 {
