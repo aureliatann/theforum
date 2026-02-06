@@ -46,12 +46,13 @@ def personalize_eticket_from_jpg(jpg_path, name):
     # Create overlay with name
     overlay_stream = BytesIO()
     can = canvas.Canvas(overlay_stream, pagesize=(width, height))
-    can.setFont("Helvetica-Bold", 24)
+    can.setFont("Helvetica", 14)
+    can.setFillColorRGB(1, 1, 1)
 
-    # Adjust these coordinates to position name
-    x = width * 0.5  # center horizontally
-    y = height * 0.2  # 20% from bottom
-    can.drawCentredString(x, y, name)
+    # Bottom-left coordinates of name position
+    x = 431 
+    y = 181 
+    can.drawString(x, y, name)
     can.save()
     overlay_stream.seek(0)
 
