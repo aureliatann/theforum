@@ -9,104 +9,88 @@ from django.conf import settings
 # PDF imports
 from PyPDF2 import PdfReader, PdfWriter
 from reportlab.pdfgen import canvas
-from reportlab.lib.pagesizes import letter
+from reportlab.lib.colors import white
 from io import BytesIO
 import os
 
-# -----------------------------
-# PDF helper function
-# -----------------------------
-from PIL import Image
-from reportlab.pdfgen import canvas
-from io import BytesIO
-from PyPDF2 import PdfReader, PdfWriter
 
-def personalize_eticket_from_jpg(jpg_path, name):
-    """
-    Convert a JPG image to PDF and overlay attendee name.
-    Returns a BytesIO object containing the final PDF.
-    """
-    # -----------------------------
-    # Step 1: Convert JPG to PDF
-    # -----------------------------
-    image = Image.open(jpg_path)
-    pdf_bytes = BytesIO()
-    image_rgb = image.convert("RGB")  # ensure it's RGB
-    image_rgb.save(pdf_bytes, format="PDF")
-    pdf_bytes.seek(0)
+# =============================
+# PDF overlay function
+# =============================
+def personalize_eticket_from_pdf(pdf_path, name):
+    print("\n=== USING TEMPLATE PDF ===")
+    print(pdf_path)
+    print("==========================\n")
 
-    # -----------------------------
-    # Step 2: Load PDF and prepare overlay
-    # -----------------------------
-    base_pdf = PdfReader(pdf_bytes)
+    base_pdf = PdfReader(pdf_path)
     page = base_pdf.pages[0]
+
     width = float(page.mediabox.width)
     height = float(page.mediabox.height)
+    print("PDF SIZE:", width, height)
 
-    # Create overlay with name
+    # Create overlay PDF
     overlay_stream = BytesIO()
     can = canvas.Canvas(overlay_stream, pagesize=(width, height))
-    can.setFont("Helvetica", 14)
-    can.setFillColorRGB(1, 1, 1)
 
-    # Bottom-left coordinates of name position
-    x = 431 
-    y = 181 
+    # Name style
+    from reportlab.lib.colors import white
+    can.setFont("Helvetica", 14)
+    can.setFillColor(white)
+
+    # Coordinates for bottom-left of name position
+    x = 323
+    y = 143.5
+
     can.drawString(x, y, name)
     can.save()
     overlay_stream.seek(0)
 
     overlay_pdf = PdfReader(overlay_stream)
+
+    # Merge
     output = PdfWriter()
+    base_page = base_pdf.pages[0]
+    overlay_page = overlay_pdf.pages[0]
 
-    # Merge overlay onto base PDF
-    for i in range(len(base_pdf.pages)):
-        page = base_pdf.pages[i]
-        if i < len(overlay_pdf.pages):
-            page.merge_page(overlay_pdf.pages[i])
-        output.add_page(page)
+    base_page.merge_page(overlay_page)
+    output.add_page(base_page)
 
-    # Save final PDF to BytesIO
-    final_pdf_stream = BytesIO()
-    output.write(final_pdf_stream)
-    final_pdf_stream.seek(0)
-    return final_pdf_stream
+    final_pdf = BytesIO()
+    output.write(final_pdf)
+    final_pdf.seek(0)
 
-# -----------------------------
-# Views
-# -----------------------------
+    return final_pdf
+
+# =============================
+# Register View
+# =============================
 def register(request):
     if request.method == "POST":
         form = AttendeeForm(request.POST)
 
         if form.is_valid():
-            attendee = form.save()  # Save attendee
+            attendee = form.save()
 
             # -----------------------------
-            # PDF template path
+            # Correct PDF path
             # -----------------------------
-            # Path to your JPG template
-            jpg_path = os.path.join(
-                os.path.dirname(os.path.dirname(os.path.abspath(__file__))),  # this points to 'theforum/'
-                "attendees",
+            app_dir = os.path.dirname(os.path.abspath(__file__))
+
+            pdf_path = os.path.join(
+                app_dir,
                 "static",
                 "attendees",
-                "images",
-                "eticket_template_2025.jpg"
+                "pdf",
+                "eticket_template_2025.pdf"
             )
 
+            print("\n=== FINAL RESOLVED PATH ===")
+            print(pdf_path)
+            print("===========================\n")
+
             # Generate personalized PDF
-            pdf_file = personalize_eticket_from_jpg(jpg_path, attendee.first_name)
-
-            # -----------------------------
-            # Save PDF to Desktop
-            # -----------------------------
-            desktop_path = "/Users/aureliatan/desktop"
-            output_file = os.path.join(desktop_path, f"{attendee.first_name}_eticket.pdf")
-
-            with open(output_file, "wb") as f:
-                f.write(pdf_file.getbuffer())
-
+            pdf_file = personalize_eticket_from_pdf(pdf_path, attendee.first_name)
 
             # -----------------------------
             # Email subject + sender + recipient
@@ -168,12 +152,10 @@ Warm regards,<br>
             # -----------------------------
             # Build and send email with PDF attached
             # -----------------------------
-            '''
             msg = EmailMultiAlternatives(subject, text_content, from_email, [to])
             msg.attach_alternative(html_content, "text/html")
             msg.attach(f"{attendee.first_name}_eticket.pdf", pdf_file.read(), "application/pdf")
             msg.send()  # Send email
-            '''
             return render(request, 'success.html', {'attendee_email': attendee.email})
 
     else:
