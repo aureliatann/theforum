@@ -192,20 +192,64 @@ hr {
 @keyframes spin {
     100% { transform: rotate(360deg); }
 }
-
 /* ============================
-   SUCCESS PAGE
+   SUCCESS PAGE STYLING
 ============================ */
-.success-container h2,
-.success-container p,
-.success-container .button-container {
-    text-align: center;
+/* Wrapper to center the container */
+.success-wrapper {
+    display: flex;
+    justify-content: center; /* horizontal center */
+    align-items: center;     /* vertical center */
+    min-height: 100vh;       /* full viewport height */
+    padding: 20px;
+    box-sizing: border-box;
 }
 
-.success-container p {
-    max-width: 90%;
-    margin-inline: auto;
+/* Keep the container as normal */
+.success-container {
+    display: block;          /* reset flex */
+    max-width: 650px;        /* or your normal form width */
+    width: 90%;              /* responsive width */
+    padding: 25px 30px;
+    border-radius: 12px;
+    background-color: #fff;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+    text-align: center;
+    box-sizing: border-box;
 }
+
+/* Mobile tweaks */
+@media (max-width: 600px) {
+    .success-container {
+        width: 90%;
+        padding: 15px 20px;
+    }
+
+    .success-container h2 {
+        font-size: 1.4rem;
+    }
+
+    .success-container p {
+        font-size: 0.95rem;
+    }
+}
+
+@media (max-width: 400px) {
+    .success-container {
+        width: 88%;
+        padding: 12px 18px;
+    }
+
+    .success-container h2 {
+        font-size: 1.3rem;
+    }
+
+    .success-container p {
+        font-size: 0.9rem;
+    }
+}
+
+
 
 /* ============================
    SPLASH SCREEN
@@ -249,29 +293,94 @@ hr {
 }
 
 /* ============================
-   RESPONSIVE (MOBILE)
+   RESPONSIVE (DESKTOP / TABLET / MOBILE)
 ============================ */
-@media (max-width: 600px) {
-    body {
-        flex-direction: column;
-        min-height: auto;
-        padding: 10px;
-    }
 
+/* Large desktop (>1200px) */
+@media (min-width: 1200px) {
     .container {
-        max-width: none;
-        padding: 15px;
-        margin: 10px 0;
+        max-width: 700px;       /* slightly bigger on large screens */
+        padding: 25px 30px;
+        margin: 20px auto;
+    }
+}
+
+/* Desktop / small laptop (900px – 1200px) */
+@media (max-width: 1199px) and (min-width: 901px) {
+    .container {
+        max-width: 600px;       /* your original width */
+        padding: 20px 25px;
+        margin: 20px auto;
+    }
+}
+
+/* Tablets (601px – 900px) */
+@media (max-width: 900px) and (min-width: 601px) {
+    .container {
+        width: 90%;
+        max-width: 550px;
+        padding: 18px 20px;
+        margin: 15px auto;
     }
 
     h2 {
-        font-size: 1.4rem;
+        font-size: 1.5rem;
     }
 
     .form-row {
         flex-direction: column;
     }
 }
+
+/* Phones (401px – 600px) */
+@media (max-width: 600px) and (min-width: 401px) {
+    body {
+        justify-content: flex-start;
+        align-items: stretch;
+        min-height: 100%;
+        padding: 10px 0;
+    }
+
+    .container {
+        width: 90%;
+        max-width: 90%;
+        padding: 15px 20px;
+        margin: 12px auto;
+        border-radius: 10px;
+    }
+
+    h2 {
+        font-size: 1.4rem;
+    }
+
+    p, .form-input {
+        font-size: 0.95rem;
+    }
+}
+
+/* Small phones (<400px) */
+@media (max-width: 400px) {
+    body {
+        padding: 5px 0;
+    }
+
+    .container {
+        width: 88%;
+        padding: 12px 18px;
+        margin: 10px auto;
+        border-radius: 8px;
+    }
+
+    h2 {
+        font-size: 1.3rem;
+    }
+
+    p, .form-input {
+        font-size: 0.9rem;
+    }
+}
+
+
 
 /* Title alignment fix */
 .register-title {
@@ -292,11 +401,11 @@ hr {
 }
 
 .theme-title {
-    font-size: 1rem; 
+    font-size: 1rem;
     font-weight: 600;
-    margin-bottom: 0;       
-    color: #0a0a0a;     
-    letter-spacing: 0;      
+    margin-bottom: 0;
+    color: #0a0a0a;
+    letter-spacing: 0;
 }
 
 .theme-subtitle {
@@ -366,7 +475,7 @@ hr {
     border-radius: 50px;      /* pill shape */
     padding: 12px 25px;
     box-shadow: 0 6px 15px rgba(0,0,0,0.25);
-    background-color: #b53335; 
+    background-color: #b53335;
     color: #fff;
     font-weight: bold;
     font-size: 1rem;
