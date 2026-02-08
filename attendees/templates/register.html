@@ -5,13 +5,22 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta-name="viewport" content="width=device-width, initial-scale=1">
     <title>Register for The Forum</title>
     <link rel="stylesheet" href="{% static 'attendees/css/style.css' %}">
 </head>
 <body>
 
-<!-- Loading Overlay -->
+<!-- ====================
+     FULL PAGE SPLASH SCREEN
+     ==================== -->
+<div id="splash-screen">
+    <img src="{% static 'attendees/images/logo.png' %}" class="splash-logo">
+</div>
+
+<!-- ====================
+     LOADING OVERLAY
+     ==================== -->
 <div class="loading-overlay" id="loading-overlay">
     <div class="spinner"></div>
     <p class="loading-text">Processing your registration…</p>
@@ -65,15 +74,35 @@
     </div>
 </div>
 
-<!-- Fade + Loading Script -->
+<!-- ====================
+     SPLASH + FADE + LOADING SCRIPT
+     ==================== -->
 <script>
-document.addEventListener("DOMContentLoaded", function() {
+document.addEventListener("DOMContentLoaded", function () {
+
+    const splash = document.getElementById("splash-screen");
     const page = document.getElementById("page-container");
     const form = document.getElementById("registration-form");
     const overlay = document.getElementById("loading-overlay");
 
-    page.classList.add("fade-enter-active");
+    /* Force page to be hidden initially */
+    page.style.opacity = "0";
+    page.style.transform = "translateY(10px)";
 
+    /* Make absolutely sure splash disappears */
+    setTimeout(() => {
+        splash.style.opacity = "0";
+        splash.style.pointerEvents = "none";
+        splash.style.display = "none";
+
+        /* Force page to appear */
+        page.classList.add("fade-enter-active");
+        page.style.opacity = "1";
+        page.style.transform = "translateY(0)";
+    }, 1500); // slightly longer to guarantee sync
+        
+
+    /* Loading animation on submit */
     form.addEventListener("submit", function(e) {
         e.preventDefault();
 

@@ -1,6 +1,6 @@
-/* ====================
+/* ============================
    GENERAL PAGE STYLES
-   ==================== */
+============================ */
 body {
     font-family: Arial, sans-serif;
     line-height: 1.4;
@@ -15,15 +15,18 @@ body {
     min-height: 100vh;
 }
 
-/* Container */
+/* ============================
+   MAIN CONTAINER
+============================ */
 .container {
     max-width: 600px;
+    width: 100%;
     padding: 20px;
+
     background-color: #fff;
     border-radius: 12px;
     box-shadow: 0 8px 20px rgba(0,0,0,0.15);
-    transition: all 0.3s ease;
-    margin: 0;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
 .container:hover {
@@ -31,7 +34,9 @@ body {
     box-shadow: 0 12px 25px rgba(0,0,0,0.2);
 }
 
-/* Banner */
+/* ============================
+   BANNER
+============================ */
 .banner {
     width: 100%;
     margin-bottom: 15px;
@@ -39,35 +44,35 @@ body {
 
 .banner-img {
     width: 100%;
-    height: auto;
-    display: block;
     border-radius: 10px;
+    display: block;
     object-fit: cover;
 }
 
-/* Headings */
+/* ============================
+   TEXT ELEMENTS
+============================ */
 h2 {
     color: #0a0a0a;
-    margin-top: 20px;
-    margin-bottom: 10px;
+    margin: 20px 0 10px;
     font-size: 1.6rem;
 }
 
-/* Paragraphs */
 p {
     margin-bottom: 10px;
     font-size: 1rem;
     color: #0a0a0a;
 }
 
-/* Divider */
 hr {
     margin: 20px 0;
     border: none;
     border-top: 1px solid #ddd;
 }
 
-/* Form row */
+/* ============================
+   FORM
+============================ */
 .form-row {
     display: flex;
     gap: 10px;
@@ -78,7 +83,6 @@ hr {
     flex: 1;
 }
 
-/* Form inputs */
 .form-input {
     width: 100%;
     padding: 8px;
@@ -90,30 +94,34 @@ hr {
 
 .form-input::placeholder {
     color: #999;
-    opacity: 1;
     font-style: italic;
 }
 
-/* Button container */
+/* ============================
+   BUTTONS
+============================ */
 .button-container {
     display: flex;
     justify-content: center;
     margin-top: 20px;
 }
 
-/* Submit button */
 .submit-btn {
     background-color: #b53335;
     color: #fff;
     border: none;
     padding: 10px 25px;
     font-size: 1rem;
+
     border-radius: 20px;
     cursor: pointer;
-    text-align: center;
-    transition: all 0.3s ease;
     min-width: 200px;
+
+    text-align: center;
+    text-decoration: none;
+
     box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    transition: all 0.3s ease;
 }
 
 .submit-btn:hover {
@@ -122,19 +130,13 @@ hr {
     box-shadow: 0 6px 12px rgba(0,0,0,0.15);
 }
 
-.submit-btn,
-.submit-btn:hover,
-.submit-btn:focus {
-    text-decoration: none;
-}
-
-/* ====================
-   FADE ANIMATION
-   ==================== */
+/* ============================
+   PAGE FADE-IN
+============================ */
 .fade-enter {
     opacity: 0;
     transform: translateY(10px);
-    transition: opacity 0.5s ease, transform 0.5s ease;
+    transition: opacity 0.75s ease, transform 0.75s ease;
 }
 
 .fade-enter-active {
@@ -142,25 +144,26 @@ hr {
     transform: translateY(0);
 }
 
-/* ====================
+/* ============================
    LOADING OVERLAY
-   ==================== */
+============================ */
 .loading-overlay {
     position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: rgba(255,255,255,0.8);
+    inset: 0;
+
     display: flex;
-    flex-direction: column;  /* STACK spinner + text */
-    align-items: center;     /* center horizontally */
-    justify-content: center; /* center vertically */
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    background: rgba(255,255,255,0.8);
     backdrop-filter: blur(4px);
-    z-index: 9999;
+
     opacity: 0;
     pointer-events: none;
     transition: opacity 0.3s ease;
+
+    z-index: 9999;
 }
 
 .loading-overlay.active {
@@ -169,39 +172,96 @@ hr {
 }
 
 .spinner {
+    width: 50px;
+    height: 50px;
+
     border: 4px solid #ddd;
     border-top: 4px solid #b53335;
     border-radius: 50%;
-    width: 50px;
-    height: 50px;
+
     animation: spin 0.8s linear infinite;
-    margin-bottom: 15px; /* gap between spinner + text */
+    margin-bottom: 15px;
 }
 
 .loading-text {
     font-size: 1.2rem;
     color: #b53335;
     font-weight: bold;
-    text-align: center;
 }
 
 @keyframes spin {
     100% { transform: rotate(360deg); }
 }
 
-/* Responsive */
+/* ============================
+   SUCCESS PAGE
+============================ */
+.success-container h2,
+.success-container p,
+.success-container .button-container {
+    text-align: center;
+}
+
+.success-container p {
+    max-width: 90%;
+    margin-inline: auto;
+}
+
+/* ============================
+   SPLASH SCREEN
+============================ */
+#splash-screen {
+    position: fixed;
+    inset: 0;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    background: #fff;
+    z-index: 99999;
+
+    animation: splashFade 1.2s ease forwards;
+}
+
+/* Fullscreen responsive splash logo */
+.splash-logo {
+    width: min(70vw, 60vh);
+    height: auto;
+
+    max-width: 70vw;
+    max-height: 60vh;
+
+    object-fit: contain;
+
+    opacity: 0;
+    animation: logoAppear 0.8s ease forwards 0.2s;
+}
+
+@keyframes splashFade {
+    0%, 80% { opacity: 1; }
+    100% { opacity: 0; }
+}
+
+@keyframes logoAppear {
+    from { opacity: 0; transform: scale(0.92); }
+    to { opacity: 1; transform: scale(1); }
+}
+
+/* ============================
+   RESPONSIVE (MOBILE)
+============================ */
 @media (max-width: 600px) {
     body {
-        flex-direction: column; /* stack content vertically */
-        min-height: auto;       /* let body height adjust */
+        flex-direction: column;
+        min-height: auto;
         padding: 10px;
     }
 
     .container {
-        width: 100%;   /* fill screen width */
-        max-width: none; /* remove 600px limit on small screens */
+        max-width: none;
         padding: 15px;
-        margin: 10px 0; /* small top/bottom margin */
+        margin: 10px 0;
     }
 
     h2 {
@@ -212,54 +272,10 @@ hr {
         flex-direction: column;
     }
 }
-/* Slightly slower slide + fade animation */
-.container > * {
-    opacity: 0;
-    animation: fadeSlide 0.55s ease forwards; /* was 0.45s */
-}
 
-/* Slightly slower stagger */
-.container > *:nth-child(1) { animation-delay: 0.07s; }
-.container > *:nth-child(2) { animation-delay: 0.14s; }
-.container > *:nth-child(3) { animation-delay: 0.21s; }
-.container > *:nth-child(4) { animation-delay: 0.28s; }
-.container > *:nth-child(5) { animation-delay: 0.35s; }
-.container > *:nth-child(6) { animation-delay: 0.42s; }
-.container > *:nth-child(7) { animation-delay: 0.49s; }
-.container > *:nth-child(8) { animation-delay: 0.56s; }
-.container > *:nth-child(9) { animation-delay: 0.63s; }
-.container > *:nth-child(10) { animation-delay: 0.70s; }
-
-/* Keyframes */
-@keyframes fadeSlide {
-    from { opacity: 0; transform: translateY(10px); }
-    to { opacity: 1; transform: translateY(0); }
-}
-
+/* Title alignment fix */
 .register-title {
-    text-align: center !important;
-    width: 100%;
-    display: block;
-    margin-top: 25px;
-}
-
-
-/* Center the success message section */
-.success-container h2,
-.success-container p,
-.success-container .button-container {
     text-align: center;
-    margin-left: auto;
-    margin-right: auto;
-}
-
-/* Optional: make the paragraph slightly narrower for nicer readability */
-.success-container p {
-    max-width: 90%;
-}
-
-/* Ensure the button stays centered */
-.success-container .button-container {
-    display: flex;
-    justify-content: center;
+    width: 100%;
+    margin-top: 25px;
 }
