@@ -212,3 +212,54 @@ hr {
         flex-direction: column;
     }
 }
+/* Slightly slower slide + fade animation */
+.container > * {
+    opacity: 0;
+    animation: fadeSlide 0.55s ease forwards; /* was 0.45s */
+}
+
+/* Slightly slower stagger */
+.container > *:nth-child(1) { animation-delay: 0.07s; }
+.container > *:nth-child(2) { animation-delay: 0.14s; }
+.container > *:nth-child(3) { animation-delay: 0.21s; }
+.container > *:nth-child(4) { animation-delay: 0.28s; }
+.container > *:nth-child(5) { animation-delay: 0.35s; }
+.container > *:nth-child(6) { animation-delay: 0.42s; }
+.container > *:nth-child(7) { animation-delay: 0.49s; }
+.container > *:nth-child(8) { animation-delay: 0.56s; }
+.container > *:nth-child(9) { animation-delay: 0.63s; }
+.container > *:nth-child(10) { animation-delay: 0.70s; }
+
+/* Keyframes */
+@keyframes fadeSlide {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.register-title {
+    text-align: center !important;
+    width: 100%;
+    display: block;
+    margin-top: 25px;
+}
+
+
+/* Center the success message section */
+.success-container h2,
+.success-container p,
+.success-container .button-container {
+    text-align: center;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+/* Optional: make the paragraph slightly narrower for nicer readability */
+.success-container p {
+    max-width: 90%;
+}
+
+/* Ensure the button stays centered */
+.success-container .button-container {
+    display: flex;
+    justify-content: center;
+}
