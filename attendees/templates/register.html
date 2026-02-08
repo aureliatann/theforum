@@ -10,6 +10,10 @@
     <link rel="stylesheet" href="{% static 'attendees/css/style.css' %}">
 </head>
 <body>
+<!-- Floating button to scroll to registration -->
+<button id="scroll-to-register" class="floating-btn">
+    Register Now <span class="arrow">⌄</span>
+</button>
 
 <!-- ====================
      FULL PAGE SPLASH SCREEN
@@ -43,12 +47,7 @@
         <div class="theme-section fade-enter">
             <h2 class="theme-title">This Year’s Theme:</h2>
             <h3 class="theme-subtitle">Prosperous Indonesia: Advancing Beyond Wealth</h3>
-
-            <p class="theme-text">
-                The Forum 2026 explores how economic growth, social equity, political stability,
-                and educational opportunity work together to build meaningful prosperity.
-            </p>
-
+            
             <blockquote class="theme-quote">
                 “Without the dynamic participation of the economic sector, we cannot have growth
                 and prosperity. Without growth, we cannot alleviate poverty, create relevance,
@@ -111,6 +110,7 @@ document.addEventListener("DOMContentLoaded", function () {
     const page = document.getElementById("page-container");
     const form = document.getElementById("registration-form");
     const overlay = document.getElementById("loading-overlay");
+    const scrollBtn = document.getElementById("scroll-to-register");
 
     /* Force page to be hidden initially */
     page.style.opacity = "0";
@@ -126,8 +126,7 @@ document.addEventListener("DOMContentLoaded", function () {
         page.classList.add("fade-enter-active");
         page.style.opacity = "1";
         page.style.transform = "translateY(0)";
-    }, 1500); // slightly longer to guarantee sync
-        
+    }, 1500);
 
     /* Loading animation on submit */
     form.addEventListener("submit", function(e) {
@@ -141,8 +140,35 @@ document.addEventListener("DOMContentLoaded", function () {
 
         setTimeout(() => form.submit(), 400);
     });
+
+    /* Floating button scroll */
+    scrollBtn.addEventListener("click", function () {
+        if (form) {
+            form.scrollIntoView({ behavior: "smooth", block: "start" });
+        }
+    });
+
+    /* IntersectionObserver: hide floating button when form is in view */
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                scrollBtn.style.opacity = "0";
+                scrollBtn.style.pointerEvents = "none"; // disable clicks
+            } else {
+                scrollBtn.style.opacity = "1";
+                scrollBtn.style.pointerEvents = "auto"; // enable clicks
+            }
+        });
+    }, {
+        root: null,      // viewport
+        threshold: 0.1   // 10% of form visible triggers hiding
+    });
+
+    observer.observe(form);
+
 });
 </script>
+
 
 </body>
 </html>

@@ -354,3 +354,47 @@ hr {
 .contact-info a:hover {
     text-decoration: underline;
 }
+
+/* ============================
+   SCROLL TO REGISTER FLOATING BUTTON
+============================ */
+#scroll-to-register {
+    position: fixed;          /* stays in place while scrolling */
+    bottom: 20px;             /* distance from bottom */
+    right: 20px;              /* distance from right */
+    z-index: 9999;            /* above everything else */
+    border-radius: 50px;      /* pill shape */
+    padding: 12px 25px;
+    box-shadow: 0 6px 15px rgba(0,0,0,0.25);
+    background-color: #b53335; 
+    color: #fff;
+    font-weight: bold;
+    font-size: 1rem;
+    cursor: pointer;
+    display: flex;
+    align-items: center;      /* vertically center text + arrow */
+    gap: 6px;                 /* space between text and arrow */
+    transition: all 0.3s ease;
+    border: none;             /* remove default border */
+    outline: none;            /* remove default focus outline */
+}
+
+/* Hover effect */
+#scroll-to-register:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 10px 20px rgba(0,0,0,0.3);
+    background-color: #8a2629;
+}
+
+/* Remove outline on focus */
+#scroll-to-register:focus {
+    outline: none;
+}
+
+/* Arrow inside button */
+#scroll-to-register .arrow {
+    font-size: 1.4rem;       /* slightly bigger arrow */
+    position: relative;
+    top: -6px;               /* move arrow slightly up for alignment */
+    display: inline-block;
+}
