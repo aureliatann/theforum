@@ -36,19 +36,47 @@
             <img src="{% static 'attendees/images/banner.jpeg' %}" alt="The Forum 2026" class="banner-img">
         </div>
 
-        <!-- Event Info -->
+        <!-- Event Theme -->
         <h2>What is The Forum?</h2>
         <p>The Forum is an annual talk show that provides a platform for Indonesian students to engage with experts and public figures on issues related to Indonesia's politics, economy, and society.</p>
         
+        <div class="theme-section fade-enter">
+            <h2 class="theme-title">This Year’s Theme:</h2>
+            <h3 class="theme-subtitle">Prosperous Indonesia: Advancing Beyond Wealth</h3>
+
+            <p class="theme-text">
+                The Forum 2026 explores how economic growth, social equity, political stability,
+                and educational opportunity work together to build meaningful prosperity.
+            </p>
+
+            <blockquote class="theme-quote">
+                “Without the dynamic participation of the economic sector, we cannot have growth
+                and prosperity. Without growth, we cannot alleviate poverty, create relevance,
+                or provide employment.”
+                <span class="quote-author">— President Prabowo Subianto</span>
+            </blockquote>
+
+            <p class="theme-text">
+                This year’s theme emphasizes that prosperity is more than wealth — it is about
+                ensuring today’s progress translates into fair opportunity, reduced inequality,
+                and sustainable wellbeing for all.
+            </p>
+        </div>
+
+        <!-- Event Info -->
         <h2>Event Details</h2>
         <p><strong>🗓️ Date:</strong> Sunday, April 12, 2026</p>
         <p><strong>⏱️ Open Gate:</strong> 5:00 PM AEST</p>
         <p><strong>📍 Location:</strong> Copland Theatre (B01), The Spot, The University of Melbourne</p>
+        <p><strong>👔 Dresscode:</strong> Batik / Formal</strong></p>
 
         <hr>
 
         <!-- Registration Form -->
         <h2 class="register-title">Register for The Forum 2026</h2>
+        <p class="contact-info"> For any inquiries, email us at 
+            <a href="mailto:theforum2026@gmail.com">theforum2026@gmail.com</a>
+        </p>
         <form method="POST" id="registration-form">
             {% csrf_token %}
 
@@ -70,7 +98,6 @@
             </div>
 
         </form>
-
     </div>
 </div>
 

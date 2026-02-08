@@ -278,4 +278,79 @@ hr {
     text-align: center;
     width: 100%;
     margin-top: 25px;
+    margin-bottom: 0;
+}
+
+/* ============================
+   THEME SECTION STYLING
+============================ */
+.theme-section {
+    margin-bottom: 25px;
+    text-align: center;
+    animation: fadeInTheme 0.8s ease forwards;
+    opacity: 0;
+}
+
+.theme-title {
+    font-size: 1rem; 
+    font-weight: 600;
+    margin-bottom: 0;       
+    color: #0a0a0a;     
+    letter-spacing: 0;      
+}
+
+.theme-subtitle {
+    font-size: 1.45rem;                  /* slightly bigger for emphasis */
+    font-weight: 700;                     /* bold but elegant */
+    margin-top: 0;
+    margin-bottom: 12px;                  /* tighter spacing */
+    color: #b53335;                       /* deep, rich red */
+}
+
+
+.theme-text {
+    font-size: 1rem;
+    margin-bottom: 15px;
+    color: #0a0a0a;
+}
+
+.theme-quote {
+    font-style: italic;
+    font-size: 1rem;
+    background: #f3f3f3;
+    padding: 15px 18px;
+    border-left: 4px solid #b53335;
+    border-radius: 6px;
+    margin: 15px auto;
+    max-width: 90%;
+    color: #444;
+}
+
+.quote-author {
+    display: block;
+    margin-top: 8px;
+    font-size: 0.9rem;
+    color: #666;
+}
+
+/* Smooth fade */
+@keyframes fadeInTheme {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.contact-info {
+    font-size: 0.8rem;
+    color: #555;
+    text-align: center;
+    margin-top: 0;
+}
+
+.contact-info a {
+    color: #b53335;
+    text-decoration: none;
+}
+
+.contact-info a:hover {
+    text-decoration: underline;
 }

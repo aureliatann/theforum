@@ -110,6 +110,7 @@ Event Details:
 - Date: Sunday, April 12, 2026
 - Open Gate: 5:00 PM AEST
 - Location: Copland Theatre (B01), The Spot, The University of Melbourne
+- Dresscode: Batik / Formal
 
 Best regards,
 The Forum Team
@@ -129,8 +130,8 @@ We are pleased to confirm your registration for
 <ul>
     <li><strong>🗓️ Date:</strong> Sunday, April 12, 2026</li>
     <li><strong>⏱️ Open Gate:</strong> 5:00 PM AEST</li>
-    <li><strong>📍 Location:</strong> Copland Theatre (B01), The Spot,<br>
-        The University of Melbourne</li>
+    <li><strong>📍 Location:</strong> Copland Theatre (B01), The Spot, The University of Melbourne</li>
+    <li><strong>👔 Dresscode:</strong> Batik / Formal</li>
 </ul>
 
 <p>
