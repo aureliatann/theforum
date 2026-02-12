@@ -64,7 +64,7 @@ p {
 }
 
 hr {
-    margin: 20px 0;
+    margin: 30px auto;
     border: none;
     border-top: 1px solid #ddd;
 }
@@ -191,7 +191,8 @@ hr {
    THEME SECTION
 ============================ */
 .theme-section {
-    margin-bottom: 25px;
+    margin-top: 30px;
+    margin-bottom: 0;
     text-align: center;
     animation: fadeInTheme 0.8s ease forwards;
     opacity: 0;
@@ -215,7 +216,7 @@ hr {
 
 .theme-text {
     font-size: 1rem;
-    margin-bottom: 15px;
+    margin-bottom: 0;
     color: #0a0a0a;
 }
 
@@ -257,11 +258,14 @@ hr {
     gap: 30px;
     align-items: center;
     width: 100%;
+    margin-top: 10px;
+    margin-bottom: 10px;
 }
 
 .alt-text,
 .alt-image {
     flex: 1;
+    margin-top: 0;
 }
 
 .alt-image img {
