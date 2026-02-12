@@ -53,7 +53,7 @@ body {
    TEXT ELEMENTS
 ============================ */
 h2 {
-    color: #0a0a0a;
+    color: #121240;
     margin: 20px 0 10px;
     font-size: 1.6rem;
 }
@@ -107,7 +107,7 @@ hr {
 }
 
 .submit-btn {
-    background-color: #b53335;
+    background-color: #6C221B;
     color: #fff;
     border: none;
     padding: 10px 25px;
@@ -125,7 +125,7 @@ hr {
 }
 
 .submit-btn:hover {
-    background-color: #8a2629;
+    background-color: #8A2D24;
     transform: translateY(-2px);
     box-shadow: 0 6px 12px rgba(0,0,0,0.15);
 }
@@ -176,7 +176,7 @@ hr {
     height: 50px;
 
     border: 4px solid #ddd;
-    border-top: 4px solid #b53335;
+    border-top: 4px solid #6C221B;
     border-radius: 50%;
 
     animation: spin 0.8s linear infinite;
@@ -185,7 +185,7 @@ hr {
 
 .loading-text {
     font-size: 1.2rem;
-    color: #b53335;
+    color: #6C221B;
     font-weight: bold;
 }
 
@@ -404,7 +404,7 @@ hr {
     font-size: 1rem;
     font-weight: 600;
     margin-bottom: 0;
-    color: #0a0a0a;
+    color: #121240;
     letter-spacing: 0;
 }
 
@@ -413,7 +413,7 @@ hr {
     font-weight: 700;                     /* bold but elegant */
     margin-top: 0;
     margin-bottom: 12px;                  /* tighter spacing */
-    color: #b53335;                       /* deep, rich red */
+    color: #6C221B;                       /* deep, rich red */
 }
 
 
@@ -428,7 +428,7 @@ hr {
     font-size: 1rem;
     background: #f3f3f3;
     padding: 15px 18px;
-    border-left: 4px solid #b53335;
+    border-left: 4px solid #6C221B;
     border-radius: 6px;
     margin: 15px auto;
     max-width: 90%;
@@ -456,7 +456,7 @@ hr {
 }
 
 .contact-info a {
-    color: #b53335;
+    color: #6C221B;
     text-decoration: none;
 }
 
@@ -475,7 +475,7 @@ hr {
     border-radius: 50px;      /* pill shape */
     padding: 12px 25px;
     box-shadow: 0 6px 15px rgba(0,0,0,0.25);
-    background-color: #b53335;
+    background-color: #6C221B;
     color: #fff;
     font-weight: bold;
     font-size: 1rem;
@@ -492,7 +492,7 @@ hr {
 #scroll-to-register:hover {
     transform: translateY(-4px);
     box-shadow: 0 10px 20px rgba(0,0,0,0.3);
-    background-color: #8a2629;
+    background-color: #8A2D24;
 }
 
 /* Remove outline on focus */
@@ -506,4 +506,45 @@ hr {
     position: relative;
     top: -6px;               /* move arrow slightly up for alignment */
     display: inline-block;
+}
+/* ============================
+   ALTERNATING SECTIONS (IMAGES + TEXT)
+============================ */
+.alt-wrap {
+    max-width: 900px !important;
+    margin: 30px auto;
+}
+
+.alt-section {
+    display: flex;
+    gap: 30px;
+    align-items: center;   /* normal centering */
+    width: 100%;
+}
+
+.alt-text, .alt-image {
+    flex: 1;
+}
+
+.alt-image img {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+    border-radius: 0;
+    display: block;
+    margin: auto 0;       /* vertically centers the IMAGE only */
+    margin-top: 12px;
+}
+
+/* stack on mobile */
+@media (max-width: 700px) {
+    .alt-section {
+        flex-direction: column !important;
+        text-align: center;
+    }
+
+    .alt-image img {
+        height: 150px;
+        margin: 0 auto;
+    }
 }
