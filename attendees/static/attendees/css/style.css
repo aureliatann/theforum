@@ -8,7 +8,6 @@ body {
     padding: 0;
     background-color: #f9f9f9;
     color: #0a0a0a;
-
     display: flex;
     justify-content: center;
     align-items: center;
@@ -22,9 +21,7 @@ body {
     max-width: 600px;
     width: 100%;
     padding: 20px;
-
     background-color: #fff;
-    border-radius: 12px;
     box-shadow: 0 8px 20px rgba(0,0,0,0.15);
     transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
@@ -38,13 +35,15 @@ body {
    BANNER
 ============================ */
 .banner {
-    width: 100%;
+    width: calc(100% + 40px);
+    margin-left: -20px;
+    margin-right: -20px;
+    margin-top: -20px;
     margin-bottom: 15px;
 }
 
 .banner-img {
     width: 100%;
-    border-radius: 10px;
     display: block;
     object-fit: cover;
 }
@@ -68,6 +67,13 @@ hr {
     margin: 20px 0;
     border: none;
     border-top: 1px solid #ddd;
+}
+
+.register-title {
+    text-align: center;
+    width: 100%;
+    margin-top: 25px;
+    margin-bottom: 0;
 }
 
 /* ============================
@@ -97,6 +103,22 @@ hr {
     font-style: italic;
 }
 
+.contact-info {
+    font-size: 0.8rem;
+    color: #555;
+    text-align: center;
+    margin-top: 0;
+}
+
+.contact-info a {
+    color: #6C221B;
+    text-decoration: none;
+}
+
+.contact-info a:hover {
+    text-decoration: underline;
+}
+
 /* ============================
    BUTTONS
 ============================ */
@@ -112,14 +134,11 @@ hr {
     border: none;
     padding: 10px 25px;
     font-size: 1rem;
-
     border-radius: 20px;
     cursor: pointer;
     min-width: 200px;
-
     text-align: center;
     text-decoration: none;
-
     box-shadow: 0 4px 8px rgba(0,0,0,0.1);
     transition: all 0.3s ease;
 }
@@ -130,268 +149,46 @@ hr {
     box-shadow: 0 6px 12px rgba(0,0,0,0.15);
 }
 
-/* ============================
-   PAGE FADE-IN
-============================ */
-.fade-enter {
-    opacity: 0;
-    transform: translateY(10px);
-    transition: opacity 0.75s ease, transform 0.75s ease;
-}
-
-.fade-enter-active {
-    opacity: 1;
-    transform: translateY(0);
-}
-
-/* ============================
-   LOADING OVERLAY
-============================ */
-.loading-overlay {
+#scroll-to-register {
     position: fixed;
-    inset: 0;
-
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-
-    background: rgba(255,255,255,0.8);
-    backdrop-filter: blur(4px);
-
-    opacity: 0;
-    pointer-events: none;
-    transition: opacity 0.3s ease;
-
+    bottom: 20px;
+    right: 20px;
     z-index: 9999;
-}
-
-.loading-overlay.active {
-    opacity: 1;
-    pointer-events: auto;
-}
-
-.spinner {
-    width: 50px;
-    height: 50px;
-
-    border: 4px solid #ddd;
-    border-top: 4px solid #6C221B;
-    border-radius: 50%;
-
-    animation: spin 0.8s linear infinite;
-    margin-bottom: 15px;
-}
-
-.loading-text {
-    font-size: 1.2rem;
-    color: #6C221B;
+    border-radius: 50px;
+    padding: 12px 25px;
+    box-shadow: 0 6px 15px rgba(0,0,0,0.25);
+    background-color: #6C221B;
+    color: #fff;
     font-weight: bold;
-}
-
-@keyframes spin {
-    100% { transform: rotate(360deg); }
-}
-/* ============================
-   SUCCESS PAGE STYLING
-============================ */
-/* Wrapper to center the container */
-.success-wrapper {
+    font-size: 1rem;
+    cursor: pointer;
     display: flex;
-    justify-content: center; /* horizontal center */
-    align-items: center;     /* vertical center */
-    min-height: 100vh;       /* full viewport height */
-    padding: 20px;
-    box-sizing: border-box;
-}
-
-/* Keep the container as normal */
-.success-container {
-    display: block;          /* reset flex */
-    max-width: 650px;        /* or your normal form width */
-    width: 90%;              /* responsive width */
-    padding: 25px 30px;
-    border-radius: 12px;
-    background-color: #fff;
-    box-shadow: 0 8px 20px rgba(0,0,0,0.15);
-    text-align: center;
-    box-sizing: border-box;
-}
-
-/* Mobile tweaks */
-@media (max-width: 600px) {
-    .success-container {
-        width: 90%;
-        padding: 15px 20px;
-    }
-
-    .success-container h2 {
-        font-size: 1.4rem;
-    }
-
-    .success-container p {
-        font-size: 0.95rem;
-    }
-}
-
-@media (max-width: 400px) {
-    .success-container {
-        width: 88%;
-        padding: 12px 18px;
-    }
-
-    .success-container h2 {
-        font-size: 1.3rem;
-    }
-
-    .success-container p {
-        font-size: 0.9rem;
-    }
-}
-
-
-
-/* ============================
-   SPLASH SCREEN
-============================ */
-#splash-screen {
-    position: fixed;
-    inset: 0;
-
-    display: flex;
-    justify-content: center;
     align-items: center;
-
-    background: #fff;
-    z-index: 99999;
-
-    animation: splashFade 1.2s ease forwards;
+    gap: 6px;
+    transition: all 0.3s ease;
+    border: none;
+    outline: none;
 }
 
-/* Fullscreen responsive splash logo */
-.splash-logo {
-    width: min(70vw, 60vh);
-    height: auto;
-
-    max-width: 70vw;
-    max-height: 60vh;
-
-    object-fit: contain;
-
-    opacity: 0;
-    animation: logoAppear 0.8s ease forwards 0.2s;
+#scroll-to-register:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 10px 20px rgba(0,0,0,0.3);
+    background-color: #8A2D24;
 }
 
-@keyframes splashFade {
-    0%, 80% { opacity: 1; }
-    100% { opacity: 0; }
+#scroll-to-register:focus {
+    outline: none;
 }
 
-@keyframes logoAppear {
-    from { opacity: 0; transform: scale(0.92); }
-    to { opacity: 1; transform: scale(1); }
+#scroll-to-register .arrow {
+    font-size: 1.4rem;
+    position: relative;
+    top: -6px;
+    display: inline-block;
 }
 
 /* ============================
-   RESPONSIVE (DESKTOP / TABLET / MOBILE)
-============================ */
-
-/* Large desktop (>1200px) */
-@media (min-width: 1200px) {
-    .container {
-        max-width: 700px;       /* slightly bigger on large screens */
-        padding: 25px 30px;
-        margin: 20px auto;
-    }
-}
-
-/* Desktop / small laptop (900px – 1200px) */
-@media (max-width: 1199px) and (min-width: 901px) {
-    .container {
-        max-width: 600px;       /* your original width */
-        padding: 20px 25px;
-        margin: 20px auto;
-    }
-}
-
-/* Tablets (601px – 900px) */
-@media (max-width: 900px) and (min-width: 601px) {
-    .container {
-        width: 90%;
-        max-width: 550px;
-        padding: 18px 20px;
-        margin: 15px auto;
-    }
-
-    h2 {
-        font-size: 1.5rem;
-    }
-
-    .form-row {
-        flex-direction: column;
-    }
-}
-
-/* Phones (401px – 600px) */
-@media (max-width: 600px) and (min-width: 401px) {
-    body {
-        justify-content: flex-start;
-        align-items: stretch;
-        min-height: 100%;
-        padding: 10px 0;
-    }
-
-    .container {
-        width: 90%;
-        max-width: 90%;
-        padding: 15px 20px;
-        margin: 12px auto;
-        border-radius: 10px;
-    }
-
-    h2 {
-        font-size: 1.4rem;
-    }
-
-    p, .form-input {
-        font-size: 0.95rem;
-    }
-}
-
-/* Small phones (<400px) */
-@media (max-width: 400px) {
-    body {
-        padding: 5px 0;
-    }
-
-    .container {
-        width: 88%;
-        padding: 12px 18px;
-        margin: 10px auto;
-        border-radius: 8px;
-    }
-
-    h2 {
-        font-size: 1.3rem;
-    }
-
-    p, .form-input {
-        font-size: 0.9rem;
-    }
-}
-
-
-
-/* Title alignment fix */
-.register-title {
-    text-align: center;
-    width: 100%;
-    margin-top: 25px;
-    margin-bottom: 0;
-}
-
-/* ============================
-   THEME SECTION STYLING
+   THEME SECTION
 ============================ */
 .theme-section {
     margin-bottom: 25px;
@@ -409,13 +206,12 @@ hr {
 }
 
 .theme-subtitle {
-    font-size: 1.45rem;                  /* slightly bigger for emphasis */
-    font-weight: 700;                     /* bold but elegant */
+    font-size: 1.45rem;
+    font-weight: 700;
     margin-top: 0;
-    margin-bottom: 12px;                  /* tighter spacing */
-    color: #6C221B;                       /* deep, rich red */
+    margin-bottom: 12px;
+    color: #6C221B;
 }
-
 
 .theme-text {
     font-size: 1rem;
@@ -442,87 +238,29 @@ hr {
     color: #666;
 }
 
-/* Smooth fade */
 @keyframes fadeInTheme {
-    from { opacity: 0; transform: translateY(10px); }
-    to { opacity: 1; transform: translateY(0); }
-}
-
-.contact-info {
-    font-size: 0.8rem;
-    color: #555;
-    text-align: center;
-    margin-top: 0;
-}
-
-.contact-info a {
-    color: #6C221B;
-    text-decoration: none;
-}
-
-.contact-info a:hover {
-    text-decoration: underline;
+    from { 
+        opacity: 0; 
+        transform: translateY(10px); 
+    }
+    to { 
+        opacity: 1; 
+        transform: translateY(0); 
+    }
 }
 
 /* ============================
-   SCROLL TO REGISTER FLOATING BUTTON
+   ALTERNATING SECTIONS
 ============================ */
-#scroll-to-register {
-    position: fixed;          /* stays in place while scrolling */
-    bottom: 20px;             /* distance from bottom */
-    right: 20px;              /* distance from right */
-    z-index: 9999;            /* above everything else */
-    border-radius: 50px;      /* pill shape */
-    padding: 12px 25px;
-    box-shadow: 0 6px 15px rgba(0,0,0,0.25);
-    background-color: #6C221B;
-    color: #fff;
-    font-weight: bold;
-    font-size: 1rem;
-    cursor: pointer;
-    display: flex;
-    align-items: center;      /* vertically center text + arrow */
-    gap: 6px;                 /* space between text and arrow */
-    transition: all 0.3s ease;
-    border: none;             /* remove default border */
-    outline: none;            /* remove default focus outline */
-}
-
-/* Hover effect */
-#scroll-to-register:hover {
-    transform: translateY(-4px);
-    box-shadow: 0 10px 20px rgba(0,0,0,0.3);
-    background-color: #8A2D24;
-}
-
-/* Remove outline on focus */
-#scroll-to-register:focus {
-    outline: none;
-}
-
-/* Arrow inside button */
-#scroll-to-register .arrow {
-    font-size: 1.4rem;       /* slightly bigger arrow */
-    position: relative;
-    top: -6px;               /* move arrow slightly up for alignment */
-    display: inline-block;
-}
-/* ============================
-   ALTERNATING SECTIONS (IMAGES + TEXT)
-============================ */
-.alt-wrap {
-    max-width: 900px !important;
-    margin: 30px auto;
-}
-
 .alt-section {
     display: flex;
     gap: 30px;
-    align-items: center;   /* normal centering */
+    align-items: center;
     width: 100%;
 }
 
-.alt-text, .alt-image {
+.alt-text,
+.alt-image {
     flex: 1;
 }
 
@@ -532,14 +270,326 @@ hr {
     object-fit: cover;
     border-radius: 0;
     display: block;
-    margin: auto 0;       /* vertically centers the IMAGE only */
+    margin: auto 0;
     margin-top: 12px;
 }
 
-/* stack on mobile */
+/* ============================
+   PAGE ANIMATIONS
+============================ */
+.fade-enter {
+    opacity: 0;
+    transform: translateY(10px);
+    transition: opacity 0.75s ease, transform 0.75s ease;
+}
+
+.fade-enter-active {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* ============================
+   LOADING OVERLAY
+============================ */
+.loading-overlay {
+    position: fixed;
+    inset: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background: rgba(255,255,255,0.8);
+    backdrop-filter: blur(4px);
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s ease;
+    z-index: 9999;
+}
+
+.loading-overlay.active {
+    opacity: 1;
+    pointer-events: auto;
+}
+
+.spinner {
+    width: 50px;
+    height: 50px;
+    border: 4px solid #ddd;
+    border-top: 4px solid #6C221B;
+    border-radius: 50%;
+    animation: spin 0.8s linear infinite;
+    margin-bottom: 15px;
+}
+
+.loading-text {
+    font-size: 1.2rem;
+    color: #6C221B;
+    font-weight: bold;
+}
+
+@keyframes spin {
+    100% { 
+        transform: rotate(360deg); 
+    }
+}
+
+/* ============================
+   SPLASH SCREEN
+============================ */
+#splash-screen {
+    position: fixed;
+    inset: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: #fff;
+    z-index: 99999;
+    animation: splashFade 1.2s ease forwards;
+}
+
+.splash-logo {
+    width: min(70vw, 60vh);
+    height: auto;
+    max-width: 70vw;
+    max-height: 60vh;
+    object-fit: contain;
+    opacity: 0;
+    animation: logoAppear 0.8s ease forwards 0.2s;
+}
+
+@keyframes splashFade {
+    0%, 80% { 
+        opacity: 1; 
+    }
+    100% { 
+        opacity: 0; 
+    }
+}
+
+@keyframes logoAppear {
+    from { 
+        opacity: 0; 
+        transform: scale(0.92); 
+    }
+    to { 
+        opacity: 1; 
+        transform: scale(1); 
+    }
+}
+
+/* ============================
+   SUCCESS PAGE
+============================ */
+.success-wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    padding: 20px;
+    box-sizing: border-box;
+}
+
+.success-container {
+    display: block;
+    max-width: 650px;
+    width: 90%;
+    padding: 25px 30px;
+    background-color: #fff;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+    text-align: center;
+    box-sizing: border-box;
+}
+
+/* ============================
+   RESPONSIVE
+============================ */
+
+/* Large desktop (>1100px) */
+@media (min-width: 1100px) {
+    .container {
+        max-width: 700px;
+        padding: 25px 30px;
+        margin: 20px auto;
+    }
+    
+    .banner {
+        width: calc(100% + 60px);
+        margin-left: -30px;
+        margin-right: -30px;
+        margin-top: -25px;
+    }
+
+    h2 {
+        font-size: 1.8rem;
+    }
+
+    p,
+    .form-input,
+    label {
+        font-size: 1rem;
+    }
+}
+
+/* Desktop / small laptop (900px – 1100px) */
+@media (max-width: 1099px) and (min-width: 901px) {
+    .container {
+        max-width: 600px;
+        padding: 20px 25px;
+        margin: 20px auto;
+    }
+    
+    .banner {
+        width: calc(100% + 50px);
+        margin-left: -25px;
+        margin-right: -25px;
+        margin-top: -20px;
+    }
+
+    h2 {
+        font-size: 1.6rem;
+    }
+
+    p,
+    .form-input,
+    label {
+        font-size: 0.95rem;
+    }
+
+    button {
+        font-size: 1rem;
+        padding: 10px 16px;
+    }
+}
+
+/* Tablets (601px – 900px) */
+@media (max-width: 900px) and (min-width: 601px) {
+    .container {
+        width: 90%;
+        max-width: 550px;
+        padding: 18px 20px;
+        margin: 15px auto;
+    }
+
+    h2 {
+        font-size: 1.5rem;
+    }
+
+    .form-row {
+        flex-direction: column;
+    }
+    
+    .banner {
+        width: calc(100% + 40px);
+        margin-left: -20px;
+        margin-right: -20px;
+        margin-top: -18px;
+    }
+}
+
+/* Phones (401px – 600px) */
+@media (max-width: 600px) and (min-width: 401px) {
+    body {
+        justify-content: flex-start;
+        align-items: stretch;
+        min-height: 100%;
+        padding: 10px 0;
+    }
+
+    .container {
+        width: 90%;
+        max-width: 90%;
+        padding: 15px 20px;
+        margin: 12px auto;
+        border-radius: 10px;
+    }
+
+    h2 {
+        font-size: 1.4rem;
+    }
+
+    p, 
+    .form-input {
+        font-size: 0.95rem;
+    }
+    
+    .banner {
+        width: calc(100% + 40px);
+        margin-left: -20px;
+        margin-right: -20px;
+        margin-top: -15px;
+    }
+    
+    .success-container {
+        width: 90%;
+        padding: 15px 20px;
+    }
+
+    .success-container h2 {
+        font-size: 1.4rem;
+    }
+
+    .success-container p {
+        font-size: 0.95rem;
+    }
+    
+    .alt-section {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .alt-image img {
+        height: 150px;
+        margin: 0 auto;
+    }
+}
+
+/* Small phones (<400px) */
+@media (max-width: 400px) {
+    body {
+        padding: 5px 0;
+    }
+
+    .container {
+        width: 88%;
+        padding: 12px 18px;
+        margin: 10px auto;
+        border-radius: 8px;
+    }
+
+    h2 {
+        font-size: 1.3rem;
+    }
+
+    p, 
+    .form-input {
+        font-size: 0.9rem;
+    }
+    
+    .banner {
+        width: calc(100% + 36px);
+        margin-left: -18px;
+        margin-right: -18px;
+        margin-top: -12px;
+    }
+    
+    .success-container {
+        width: 88%;
+        padding: 12px 18px;
+    }
+
+    .success-container h2 {
+        font-size: 1.3rem;
+    }
+
+    .success-container p {
+        font-size: 0.9rem;
+    }
+}
+
+/* Stack alternating sections on mobile */
 @media (max-width: 700px) {
     .alt-section {
-        flex-direction: column !important;
+        flex-direction: column;
         text-align: center;
     }
 

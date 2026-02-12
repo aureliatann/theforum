@@ -107,7 +107,7 @@ Thank you for registering for The Forum 2026.
 Your e-ticket is attached below.
 
 Event Details:
-- Date: Sunday, April 12, 2026
+- Date: Friday, April 10, 2026
 - Open Gate: 5:00 PM AEST
 - Location: Union Theatre, Arts & Cultural Building, The University of Melbourne
 - Dresscode: Batik / Formal
@@ -128,7 +128,7 @@ We are pleased to confirm your registration for
 <p><strong>Here are the event details for your reference:</strong></p>
 
 <ul>
-    <li><strong>🗓️ Date:</strong> Sunday, April 12, 2026</li>
+    <li><strong>🗓️ Date:</strong> Friday, April 10, 2026</li>
     <li><strong>⏱️ Open Gate:</strong> 5:00 PM AEST</li>
     <li><strong>📍 Location:</strong> Union Theatre, Arts & Cultural Building, The University of Melbourne</li>
     <li><strong>👔 Dresscode:</strong> Batik / Formal</li>
