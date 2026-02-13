@@ -10,35 +10,41 @@
 </head>
 <body>
 
+<!-- ====================
+     SUCCESS CONTAINER
+     ==================== -->
 <div class="fade-enter" id="page-container">
-
-    <!-- Add success-container here -->
     <div class="container success-container">
-
-        <!-- Banner -->
+        <!-- BANNER -->
         <div class="banner">
             <img src="{% static 'attendees/images/banner.jpg' %}" alt="The Forum 2026" class="banner-img">
         </div>
 
-        <!-- Success Message -->
+        <!-- SUCCESS MESSAGE -->
         <h2>Registration Successful</h2>
         <p>
             Thank you for registering for The Forum 2026. 
             An email with your ticket has been sent to 
             <strong>{{ attendee_email }}</strong>.
         </p>
-
-        <!-- Back Button -->
+        
+        <!-- BACK BUTTON -->
         <div class="button-container">
             <a href="/register/" class="submit-btn">Register another attendee</a>
         </div>
-
-    </div> <!-- End container -->
+    </div> 
 </div>
 
+<!-- ====================
+     LOAD SCRIPT
+     ==================== -->
 <script>
+// DOMContentLoaded: function runs ONLY after the HTML is fully loaded
+// Ensures all elements exist before JavaScript tries to access them
 document.addEventListener("DOMContentLoaded", function() {
     const page = document.getElementById("page-container");
+    
+    // setTimeout(): delays actual submission for animation to finish
     setTimeout(() => page.classList.add("fade-enter-active"), 50);
 });
 </script>

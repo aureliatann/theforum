@@ -11,44 +11,48 @@
     <link rel="icon" href="{% static 'attendees/images/favicon.ico' %}">
 </head>
 <body>
-<!-- Floating button to scroll to registration -->
-<button id="scroll-to-register" class="floating-btn">
-    Register Now <span class="arrow">⌄</span>
-</button>
 
 <!-- ====================
-     FULL PAGE SPLASH SCREEN
+     LOGO SPLASH SCREEN
      ==================== -->
 <div id="splash-screen">
     <img src="{% static 'attendees/images/logo.png' %}" class="splash-logo">
 </div>
 
 <!-- ====================
-     LOADING OVERLAY
+     LOADING INDICATOR
      ==================== -->
 <div class="loading-overlay" id="loading-overlay">
     <div class="spinner"></div>
     <p class="loading-text">Processing your registration…</p>
 </div>
 
-<!-- Fade container -->
-<div class="fade-enter" id="page-container">
+<!-- ====================
+     FLOATING BUTTON
+     ==================== -->
+<button id="scroll-to-register" class="floating-btn">
+    Register Now <span class="arrow">⌄</span>
+</button>
 
-    
+<!-- ====================
+     WEBSITE CONTAINER
+     ==================== -->
+<div class="fade-enter" id="page-container">
     <div class="container">
 
-        <!-- Banner -->
+        <!-- ====================
+            BANNER
+            ==================== -->
         <div class="banner">
-            <img src="{% static 'attendees/images/banner.jpg' %}" alt="The Forum 2026" class="banner-img">
+            <img src="{% static 'attendees/images/banner.jpg' %}" alt="Banner Image" class="banner-img">
         </div>
 
         <!-- ====================
-        WHAT IS THE FORUM — IMAGE LEFT, TEXT RIGHT
-        ==================== -->
+            WHAT IS THE FORUM
+            ==================== -->
         <div class="alt-section">
             <div class="alt-image">
-                <!-- IMAGE FOR SECTION 1 -->
-                <img src="{% static 'attendees/images/image1.jpg' %}" alt="">
+                <img src="{% static 'attendees/images/image1.jpg' %}" alt="The Forum 2025 Image">
             </div>
 
             <div class="alt-text">
@@ -57,10 +61,9 @@
             </div>
         </div>
 
-
         <!-- ====================
-            THIS YEAR’S THEME — IMAGE RIGHT, TEXT LEFT
-        ==================== -->
+            EVENT THEME
+            ==================== -->
         <div class="theme-section fade-enter">
             <h2 class="theme-title">This Year’s Theme</h2>
             <h3 class="theme-subtitle">Prosperous Indonesia: Advancing Beyond Wealth</h3>
@@ -80,11 +83,11 @@
         </div>
 
         <!-- ====================
-            EVENT DETAILS — IMAGE LEFT, TEXT RIGHT
-        ==================== -->
+            EVENT DETAILS
+            ==================== -->
         <div class="alt-section">
             <div class="alt-image">
-                <img src="{% static 'attendees/images/image3.jpg' %}" alt="">
+                <img src="{% static 'attendees/images/image3.jpg' %}" alt="The Forum 2025 Image">
             </div>
 
             <div class="alt-text">
@@ -98,9 +101,9 @@
 
         <hr>
 
-
-
-        <!-- Registration Form -->
+        <!-- ====================
+            REGISTRATION FORM
+            ==================== -->
         <h2 class="register-title">Register for The Forum 2026</h2>
         <p class="contact-info"> For any inquiries, email us at 
             <a href="mailto:theforum2026@gmail.com">theforum2026@gmail.com</a>
@@ -130,9 +133,11 @@
 </div>
 
 <!-- ====================
-     SPLASH + FADE + LOADING SCRIPT
+     SPLASH, LOAD, & FLOATING BUTTON SCRIPT
      ==================== -->
 <script>
+// DOMContentLoaded: function runs ONLY after the HTML is fully loaded
+// Ensures all elements exist before JavaScript tries to access them
 document.addEventListener("DOMContentLoaded", function () {
 
     const splash = document.getElementById("splash-screen");
@@ -141,59 +146,70 @@ document.addEventListener("DOMContentLoaded", function () {
     const overlay = document.getElementById("loading-overlay");
     const scrollBtn = document.getElementById("scroll-to-register");
 
-    /* Force page to be hidden initially */
-    page.style.opacity = "0";
-    page.style.transform = "translateY(10px)";
+    /* ==================== SPLASH SCREEN ==================== */
+    /* Initially hide page until splash ends */
+    page.style.opacity = "0"; // Page initially lowered
+    page.style.transform = "translateY(10px)"; // Page initially lowered for slide-in effect later
 
-    /* Make absolutely sure splash disappears */
+    // Automatically remove splash after 1.5secs
     setTimeout(() => {
-        splash.style.opacity = "0";
-        splash.style.pointerEvents = "none";
-        splash.style.display = "none";
+        splash.style.opacity = "0"; // Fade out
+        splash.style.pointerEvents = "none"; // Disable clicks
+        splash.style.display = "none"; // Remove splash from layout entirely
 
-        /* Force page to appear */
-        page.classList.add("fade-enter-active");
-        page.style.opacity = "1";
-        page.style.transform = "translateY(0)";
+        // Fade page in
+        page.classList.add("fade-enter-active"); // Adds the CSS animation class to fade/slide content in
+        page.style.opacity = "1"; // Fade in
+        page.style.transform = "translateY(0)"; // Slide-in effect
     }, 1500);
 
-    /* Loading animation on submit */
+    /* ==================== LOADING INDICATOR ==================== */
+    // Form listens for submit event
     form.addEventListener("submit", function(e) {
-        e.preventDefault();
+        e.preventDefault(); // Prevent immediate submission so animation can play
 
-        overlay.classList.add("active");
+        overlay.classList.add("active"); // Show loading overlay animation
 
-        page.style.transition = "opacity 0.5s ease, transform 0.5s ease";
-        page.style.opacity = 0;
-        page.style.transform = "translateY(-10px)";
+        page.style.transition = "opacity 0.2s ease, transform 0.2s ease";
+        page.style.opacity = 0; // Fade out
+        page.style.transform = "translateY(-10px)"; // Slide-in effect
 
-        setTimeout(() => form.submit(), 400);
+        setTimeout(() => form.submit(), 150); // setTimeout(): delays actual submission for animation to finish
     });
 
-    /* Floating button scroll */
+    /* ==================== FLOATING BUTTON ==================== */
+    // Floating button to automatically scroll to registration form
     scrollBtn.addEventListener("click", function () {
         if (form) {
-            form.scrollIntoView({ behavior: "smooth", block: "start" });
+            // scrollIntoView(): built-in browser function
+            // Smoothly scrolls the page so a specific element becomes visible
+            form.scrollIntoView({ 
+                behavior: "smooth", // Enable smooth scrolling (without it, scroll would jump)
+                block: "start" });  // Place top of form to top of window (aligns form clearly)
         }
     });
 
-    /* IntersectionObserver: hide floating button when form is in view */
+    // IntersectionObserver: automatically detects if an element is inside the viewport
+    // Used here to hide the scroll button when the form is visible
     const observer = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
+            // If form is visible on screen, hide floating button
             if (entry.isIntersecting) {
                 scrollBtn.style.opacity = "0";
-                scrollBtn.style.pointerEvents = "none"; // disable clicks
-            } else {
+                scrollBtn.style.pointerEvents = "none"; // Disable clicking while hidden
+            } 
+            // If form is NOT visible on screen, show floating button
+            else {
                 scrollBtn.style.opacity = "1";
-                scrollBtn.style.pointerEvents = "auto"; // enable clicks
+                scrollBtn.style.pointerEvents = "auto"; 
             }
         });
     }, {
-        root: null,      // viewport
-        threshold: 0.1   // 10% of form visible triggers hiding
+        root: null,     // Observe using entire viewport (entire visible screen)
+        threshold: 0.1  // If at least 10% of form is visible - considered in view
     });
 
-    observer.observe(form);
+    observer.observe(form); // observer.observe(): tells observer WHICH element to watch
 
 });
 </script>
