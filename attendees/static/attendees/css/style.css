@@ -18,7 +18,7 @@ body {
    MAIN CONTAINER
 ============================ */
 .container {
-    max-width: 600px;
+    max-width: 900px;
     width: 100%;
     padding: 20px;
     background-color: #fff;
@@ -35,11 +35,8 @@ body {
    BANNER
 ============================ */
 .banner {
-    width: calc(100% + 40px);
-    margin-left: -20px;
-    margin-right: -20px;
-    margin-top: -20px;
-    margin-bottom: 15px;
+    width: 100%;
+    margin: 0;
 }
 
 .banner-img {
@@ -241,13 +238,13 @@ hr {
 }
 
 @keyframes fadeInTheme {
-    from { 
-        opacity: 0; 
-        transform: translateY(10px); 
+    from {
+        opacity: 0;
+        transform: translateY(10px);
     }
-    to { 
-        opacity: 1; 
-        transform: translateY(0); 
+    to {
+        opacity: 1;
+        transform: translateY(0);
     }
 }
 
@@ -277,6 +274,7 @@ hr {
     display: block;
     margin: auto 0;
     margin-top: 12px;
+    margin-bottom: 0;
 }
 
 /* ============================
@@ -333,8 +331,8 @@ hr {
 }
 
 @keyframes spin {
-    100% { 
-        transform: rotate(360deg); 
+    100% {
+        transform: rotate(360deg);
     }
 }
 
@@ -363,22 +361,22 @@ hr {
 }
 
 @keyframes splashFade {
-    0%, 80% { 
-        opacity: 1; 
+    0%, 80% {
+        opacity: 1;
     }
-    100% { 
-        opacity: 0; 
+    100% {
+        opacity: 0;
     }
 }
 
 @keyframes logoAppear {
-    from { 
-        opacity: 0; 
-        transform: scale(0.92); 
+    from {
+        opacity: 0;
+        transform: scale(0.92);
     }
-    to { 
-        opacity: 1; 
-        transform: scale(1); 
+    to {
+        opacity: 1;
+        transform: scale(1);
     }
 }
 
@@ -416,7 +414,7 @@ hr {
         padding: 25px 30px;
         margin: 20px auto;
     }
-    
+
     .banner {
         width: calc(100% + 60px);
         margin-left: -30px;
@@ -442,7 +440,7 @@ hr {
         padding: 20px 25px;
         margin: 20px auto;
     }
-    
+
     .banner {
         width: calc(100% + 50px);
         margin-left: -25px;
@@ -482,12 +480,10 @@ hr {
     .form-row {
         flex-direction: column;
     }
-    
+
     .banner {
-        width: calc(100% + 40px);
-        margin-left: -20px;
-        margin-right: -20px;
-        margin-top: -18px;
+        width: 100%;
+        margin: 0;
     }
 }
 
@@ -502,28 +498,31 @@ hr {
 
     .container {
         width: 90%;
-        max-width: 90%;
+        margin: 0 auto;
         padding: 15px 20px;
         margin: 12px auto;
-        border-radius: 10px;
     }
 
-    h2 {
-        font-size: 1.4rem;
+    h2,
+    .theme-subtitle {
+        font-size: 1.3rem;
     }
 
-    p, 
+    .theme-quote,
+    .theme-text, .theme-title {
+        font-size: 0.9rem;
+    }
+
+    p,
     .form-input {
-        font-size: 0.95rem;
+        font-size: 0.9rem;
     }
-    
+
     .banner {
-        width: calc(100% + 40px);
-        margin-left: -20px;
-        margin-right: -20px;
-        margin-top: -15px;
+        width: 100%;
+        margin: 0;
     }
-    
+
     .success-container {
         width: 90%;
         padding: 15px 20px;
@@ -536,10 +535,9 @@ hr {
     .success-container p {
         font-size: 0.95rem;
     }
-    
+
     .alt-section {
         flex-direction: column;
-        text-align: center;
     }
 
     .alt-image img {
@@ -565,18 +563,18 @@ hr {
         font-size: 1.3rem;
     }
 
-    p, 
+    p,
     .form-input {
         font-size: 0.9rem;
     }
-    
+
     .banner {
         width: calc(100% + 36px);
         margin-left: -18px;
         margin-right: -18px;
         margin-top: -12px;
     }
-    
+
     .success-container {
         width: 88%;
         padding: 12px 18px;
@@ -593,13 +591,32 @@ hr {
 
 /* Stack alternating sections on mobile */
 @media (max-width: 700px) {
-    .alt-section {
-        flex-direction: column;
-        text-align: center;
-    }
+.alt-section {
+    display: flex !important;
+    flex-direction: row !important;   /* side-by-side */
+    gap: 10px !important;
+    align-items: center !important;   /* vertically center image with text */
+}
 
-    .alt-image img {
-        height: 150px;
-        margin: 0 auto;
-    }
+.alt-text {
+    flex: 1 !important;
+    font-size: 0.8rem !important;
+    text-align: left !important;
+}
+
+.alt-image {
+    flex: 1 !important;
+    display: flex !important;         /* make a flex wrapper for the image */
+    justify-content: center !important;  /* horizontal center */
+    align-items: center !important;      /* vertical center */
+}
+.alt-image img {
+    width: 100% !important;       /* keep full container width */
+    max-width: 180px !important;  /* cap width on small screens */
+    height: auto !important;      /* scale height by default */
+    min-height: 140px !important; /* make it taller than default */
+    object-fit: cover !important; /* crop nicely if needed */
+}
+
+
 }
