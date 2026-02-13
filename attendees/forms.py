@@ -1,15 +1,15 @@
 from django import forms
 from .models import Attendee
 
-# create form based on the Attendee model
+# Create form based on the Attendee model
 # forms.ModelForm -> create form automatically from database model
 class AttendeeForm(forms.ModelForm):
 
-    # meta tells django what model and fields form uses (configuration section)
+    # Meta tells django what model and fields form uses (configuration section)
     class Meta:
-        model = Attendee  # use Attendee model
-        fields = ['first_name', 'last_name', 'email'] # only show name and email in form
-        # widgets lets customize each field's HTML
+        model = Attendee  # Use Attendee model
+        fields = ['first_name', 'last_name', 'email'] # Only show name and email in form
+        # Widgets lets customize each field's HTML
         widgets = {
             'first_name': forms.TextInput(attrs={
                 'placeholder': 'First Name',

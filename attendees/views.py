@@ -13,70 +13,64 @@ from reportlab.lib.colors import white
 from io import BytesIO
 import os
 
-
 # =============================
-# PDF overlay function
+# Function: personalize_eticket_from_pdf
+# Creates a personalized PDF e-ticket by overlaying the attendee's name
 # =============================
 def personalize_eticket_from_pdf(pdf_path, name):
-    print("\n=== USING TEMPLATE PDF ===")
-    print(pdf_path)
-    print("==========================\n")
-
+    # Read base PDF template and use the first page
     base_pdf = PdfReader(pdf_path)
     page = base_pdf.pages[0]
 
+    # Get PDF page dimensions for correct overlay sizing
     width = float(page.mediabox.width)
     height = float(page.mediabox.height)
-    print("PDF SIZE:", width, height)
 
-    # Create overlay PDF
+    # Create a ReportLab canvas the same size as the PDF page (overlay)
     overlay_stream = BytesIO()
     can = canvas.Canvas(overlay_stream, pagesize=(width, height))
 
-    # Name style
-    from reportlab.lib.colors import white
+   # Set attendee name's font style, size, color, and position 
     can.setFont("Helvetica", 14)
     can.setFillColor(white)
-
-    # Coordinates for bottom-left of name position
+    # Coordinates for where the name appears (bottom-left is 0,0)
     x = 323
     y = 143.5
 
+    # Draw the attendee's name on the overlay
     can.drawString(x, y, name)
-    can.save()
-    overlay_stream.seek(0)
+    can.save() # Finish the overlay PDF
+    overlay_stream.seek(0)  # Move the pointer back to the start so we can read ENTIRE overlay later
 
+    # Read the overlay PDF
     overlay_pdf = PdfReader(overlay_stream)
+    # Merge overlay PDF onto base PDF
+    output = PdfWriter() # Create a new PDF writer for the final PDF
+    base_page = base_pdf.pages[0] # First page of base PDF
+    overlay_page = overlay_pdf.pages[0] # First page of overlay PDF
+    base_page.merge_page(overlay_page) # Merges base and overlay page
+    output.add_page(base_page) # Adds the merged page into final PDF file
 
-    # Merge
-    output = PdfWriter()
-    base_page = base_pdf.pages[0]
-    overlay_page = overlay_pdf.pages[0]
-
-    base_page.merge_page(overlay_page)
-    output.add_page(base_page)
-
-    final_pdf = BytesIO()
-    output.write(final_pdf)
-    final_pdf.seek(0)
-
+    # Save and return PDF
+    final_pdf = BytesIO() # Create a BytesIO object to save the final PDF in memory (not writing to disk)
+    output.write(final_pdf) # Write the merged PDF to the in-memory file
+    final_pdf.seek(0) # Move the pointer back to the start so we can read ENTIRE PDF later
     return final_pdf
 
 # =============================
-# Register View
+# View: register
+# Handles attendee form submission, PDF generation, and sending confirmation email
 # =============================
 def register(request):
+    # Populate form with POST data (POST request means user submitted the registration form)
     if request.method == "POST":
         form = AttendeeForm(request.POST)
 
         if form.is_valid():
-            attendee = form.save()
+            attendee = form.save() # Save attendee to database
 
-            # -----------------------------
-            # Correct PDF path
-            # -----------------------------
+            # Define path to PDF template
             app_dir = os.path.dirname(os.path.abspath(__file__))
-
             pdf_path = os.path.join(
                 app_dir,
                 "static",
@@ -85,21 +79,15 @@ def register(request):
                 "eticket_template_2025.pdf"
             )
 
-            print("\n=== FINAL RESOLVED PATH ===")
-            print(pdf_path)
-            print("===========================\n")
-
-            # Generate personalized PDF
+            # Generate personalized PDF e-ticket
             pdf_file = personalize_eticket_from_pdf(pdf_path, attendee.first_name)
 
-            # -----------------------------
-            # Email subject + sender + recipient
-            # -----------------------------
+            # Email details (subject, sender, and recipient)
             subject = "Registration Confirmation – The Forum 2026"
             from_email = settings.EMAIL_HOST_USER
             to = attendee.email
 
-            # Plain text fallback
+            # Plain text version of the email (fallback)
             text_content = f"""
 Dear {attendee.first_name},
 
@@ -116,7 +104,7 @@ Best regards,
 The Forum Team
 """
 
-            # HTML email content
+            # HTML email content (properly formatted)
             html_content = f"""
 <p>Dear <strong>{attendee.first_name}</strong>,</p>
 
@@ -150,20 +138,23 @@ Warm regards,<br>
 </p>
 """
 
-            # -----------------------------
             # Build and send email with PDF attached
-            # -----------------------------
-            msg = EmailMultiAlternatives(subject, text_content, from_email, [to])
-            msg.attach_alternative(html_content, "text/html")
-            msg.attach(f"{attendee.first_name}_eticket.pdf", pdf_file.read(), "application/pdf")
+            msg = EmailMultiAlternatives(subject, text_content, from_email, [to]) # Creates email object of multiple formats (plain text, HTML, attachments)
+            msg.attach_alternative(html_content, "text/html") # Attach HTML version
+            msg.attach(f"{attendee.first_name}_eticket.pdf", pdf_file.read(), "application/pdf") # Attach PDF e-ticket
             msg.send()  # Send email
             return render(request, 'success.html', {'attendee_email': attendee.email})
 
     else:
+        # If GET request (user did not submit form), show empty registration form
         form = AttendeeForm()
 
+    # Render the registration form page
     return render(request, 'register.html', {'form': form})
 
-
+# =============================
+# View: success
+# Displays success page after registration
+# =============================
 def success(request):
     return render(request, 'success.html')

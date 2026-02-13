@@ -1,5 +1,5 @@
-from django.urls import path    # path function -> defines URL patterns
-from . import views             # imports all views from this app
+from django.urls import path    # Path function -> defines URL patterns
+from . import views             # Imports all views from this app
 
 # urlpatterns -> list of all URLs in this app
 # each path() -> one URL that tells django the URL in browser and which function to run when someone visits URL
