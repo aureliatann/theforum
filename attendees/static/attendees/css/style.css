@@ -64,7 +64,7 @@ p {
 }
 
 hr {
-    margin: 30px auto;
+    margin: 20px auto;
     border: none;
     border-top: 1px solid #ddd;
 }
@@ -141,6 +141,7 @@ hr {
     text-decoration: none;
     box-shadow: 0 4px 8px rgba(0,0,0,0.1);
     transition: all 0.3s ease;
+    margin-bottom: 10px;
 }
 
 .submit-btn:hover {
@@ -270,7 +271,7 @@ hr {
 
 .alt-image img {
     width: 100%;
-    height: 200px;
+    height: 210px;
     object-fit: cover;
     border-radius: 0;
     display: block;
@@ -411,7 +412,7 @@ hr {
 /* Large desktop (>1100px) */
 @media (min-width: 1100px) {
     .container {
-        max-width: 700px;
+        max-width: 800px;
         padding: 25px 30px;
         margin: 20px auto;
     }
@@ -424,20 +425,20 @@ hr {
     }
 
     h2 {
-        font-size: 1.8rem;
+        font-size: 1.7rem;
     }
 
     p,
     .form-input,
     label {
-        font-size: 1rem;
+        font-size: 0.9rem;
     }
 }
 
 /* Desktop / small laptop (900px – 1100px) */
 @media (max-width: 1099px) and (min-width: 901px) {
     .container {
-        max-width: 600px;
+        max-width: 700px;
         padding: 20px 25px;
         margin: 20px auto;
     }
@@ -450,13 +451,13 @@ hr {
     }
 
     h2 {
-        font-size: 1.6rem;
+        font-size: 1.5rem;
     }
 
     p,
     .form-input,
     label {
-        font-size: 0.95rem;
+        font-size: 0.8rem;
     }
 
     button {
