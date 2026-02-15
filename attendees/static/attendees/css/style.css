@@ -1,3 +1,8 @@
+* {
+    max-width: 100%;
+    box-sizing: border-box;
+}
+
 /* ============================
    GENERAL PAGE STYLES
 ============================ */
@@ -399,16 +404,30 @@ hr {
     box-sizing: border-box;
 }
 
+
 .success-container {
-    display: block;
+    width: 100%;
     max-width: 650px;
-    width: 90%;
-    padding: 25px 30px;
+
+    --pad-x: 30px;
+    --pad-top: 25px;
+
+    padding: var(--pad-top) var(--pad-x);
     background-color: #fff;
-    box-shadow: 0 8px 20px rgba(0,0,0,0.15);
     text-align: center;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.15);
     box-sizing: border-box;
+    position: relative;
 }
+
+/* make banner inside success page behave exactly like normal container */
+.success-container .banner {
+    width: calc(100% + (var(--pad-x) * 2));
+    margin-left: calc(var(--pad-x) * -1);
+    margin-right: calc(var(--pad-x) * -1);
+    margin-top: calc(var(--pad-top) * -1);
+}
+
 
 /* ====================================
    RESPONSIVE
@@ -480,19 +499,28 @@ hr {
 
 /* Phones (401px – 600px) */
 @media (max-width: 600px) and (min-width: 401px) {
+
+    html, body {
+        padding: 0;
+        margin: 0;
+        overflow-x: hidden;   /* PREVENTS PHONE ZOOMING */
+    }
+
     body {
         justify-content: flex-start;
         align-items: stretch;
         min-height: 100%;
-        padding: 10px 0;
     }
 
     .container {
-        width: 90%;
+        width: 100%;
+        max-width: 100%;
         --pad-x: 20px;
         --pad-top: 15px;
-        padding: var(--pad-top) var(--pad-x);   /* ⭐ FIX ADDED */
-        margin: 12px auto;
+        padding: var(--pad-top) var(--pad-x);
+        margin: 0;
+        border-radius: 0;
+        box-sizing: border-box;
     }
 
     h2,
@@ -511,16 +539,23 @@ hr {
         font-size: 0.9rem;
     }
 
+    /* ⭐ PHONE-SAFE BANNER — ALWAYS TOUCHES EDGES */
     .banner {
-        width: calc(100% + (var(--pad-x) * 2));       /* auto-adjusts */
+        width: calc(100% + (var(--pad-x) * 2));
         margin-left: calc(var(--pad-x) * -1);
         margin-right: calc(var(--pad-x) * -1);
         margin-top: calc(var(--pad-top) * -1);
+        max-width: none;
     }
 
+    /* SUCCESS PAGE */
     .success-container {
-        width: 90%;
-        padding: 15px 20px;
+        width: 100%;
+        max-width: 100%;
+        padding: 15px var(--pad-x);
+        margin: 0;
+        border-radius: 0;
+        box-sizing: border-box;
     }
 
     .success-container h2 {
@@ -541,19 +576,30 @@ hr {
     }
 }
 
+
+
 /* Small phones (<400px) */
 @media (max-width: 400px) {
+
+    html, body {
+        padding: 0;
+        margin: 0;
+        overflow-x: hidden; /* PREVENTS ZOOMING */
+    }
+
     body {
-        padding: 5px 0;
+        min-height: 100%;
     }
 
     .container {
-        width: 88%;
+        width: 100%;
+        max-width: 100%;
         --pad-x: 18px;
         --pad-top: 12px;
-        padding: var(--pad-top) var(--pad-x);  /* ⭐ FIX ADDED */
-        margin: 10px auto;
-        border-radius: 8px;
+        padding: var(--pad-top) var(--pad-x);
+        margin: 0;
+        border-radius: 0;
+        box-sizing: border-box;
     }
 
     h2 {
@@ -565,16 +611,23 @@ hr {
         font-size: 0.9rem;
     }
 
+    /* ⭐ SMALL PHONE SAFE BANNER */
     .banner {
         width: calc(100% + (var(--pad-x) * 2));
         margin-left: calc(var(--pad-x) * -1);
         margin-right: calc(var(--pad-x) * -1);
         margin-top: calc(var(--pad-top) * -1);
+        max-width: none;
     }
 
+    /* SUCCESS PAGE */
     .success-container {
-        width: 88%;
-        padding: 12px 18px;
+        width: 100%;
+        max-width: 100%;
+        padding: 12px var(--pad-x);
+        margin: 0;
+        border-radius: 0;
+        box-sizing: border-box;
     }
 
     .success-container h2 {
@@ -585,6 +638,7 @@ hr {
         font-size: 0.9rem;
     }
 }
+
 
 /* Stack alternating sections on mobile */
 @media (max-width: 700px) {
