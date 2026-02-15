@@ -68,7 +68,7 @@ h2 {
 
 p {
     margin-bottom: 10px;
-    font-size: 1rem;
+    font-size: 1rem; /* BASE SIZE */
     color: #0a0a0a;
 }
 
@@ -196,43 +196,46 @@ hr {
     top: -6px;
     display: inline-block;
 }
-
 /* ============================
    THEME SECTION
 ============================ */
 .theme-section {
-    margin-top: 30px;
+    margin-top: 20px;
     margin-bottom: 0;
     text-align: center;
     animation: fadeInTheme 0.8s ease forwards;
     opacity: 0;
 }
 
+/* Title: small header ABOVE the big subtitle */
 .theme-title {
     font-size: 1rem;
     font-weight: 600;
-    margin-bottom: 0;
+    margin: 0;
     color: #121240;
-    letter-spacing: 0;
+    letter-spacing: 0.3px; /* subtle polishing */
 }
 
+/* Subtitle: main highlight */
 .theme-subtitle {
     font-size: 1.45rem;
     font-weight: 700;
-    margin-top: 0;
-    margin-bottom: 12px;
+    margin: 0;
     color: #6C221B;
 }
 
+/* Normal body text inside theme block */
 .theme-text {
-    font-size: 1rem;
-    margin-bottom: 0;
+    font-size: 1rem;        /* Matches <p> */
+    margin: 0 0 10px;
+    line-height: 1.45;
     color: #0a0a0a;
 }
 
+/* Quote box */
 .theme-quote {
     font-style: italic;
-    font-size: 1rem;
+    font-size: 1rem;        /* Matches theme-text + p */
     background: #f3f3f3;
     padding: 15px 18px;
     border-left: 4px solid #6C221B;
@@ -240,6 +243,7 @@ hr {
     margin: 15px auto;
     max-width: 90%;
     color: #444;
+    line-height: 1.45;
 }
 
 .quote-author {
@@ -248,6 +252,8 @@ hr {
     font-size: 0.9rem;
     color: #666;
 }
+
+
 
 @keyframes fadeInTheme {
     from {
@@ -278,6 +284,12 @@ hr {
     margin-top: 0;
 }
 
+.alt-text p {
+    margin: 4px 0;     /* reduces spacing between lines */
+    line-height: 1.5; /* tighter vertical spacing */
+}
+
+
 .alt-image img {
     width: 100%;
     height: 210px;
@@ -285,7 +297,7 @@ hr {
     border-radius: 0;
     display: block;
     margin: auto 0;
-    margin-top: 12px;
+    margin-top: 15px;
     margin-bottom: 0;
 }
 
@@ -515,7 +527,7 @@ hr {
     .container {
         width: 100%;
         max-width: 100%;
-        --pad-x: 20px;
+        --pad-x: 15px;
         --pad-top: 15px;
         padding: var(--pad-top) var(--pad-x);
         margin: 0;
@@ -525,19 +537,23 @@ hr {
 
     h2,
     .theme-subtitle {
-        font-size: 1.3rem;
-    }
-
-    .theme-quote,
-    .theme-text,
-    .theme-title {
-        font-size: 0.9rem;
+        font-size: 1.25rem;
     }
 
     p,
+    .theme-text,
     .form-input {
+        font-size: 0.9rem; /* consistent scale down */
+    }
+
+    .theme-title {
+        font-size: 0.85rem;
+    }
+
+    .theme-quote {
         font-size: 0.9rem;
     }
+
 
     /* ⭐ PHONE-SAFE BANNER — ALWAYS TOUCHES EDGES */
     .banner {
@@ -661,12 +677,13 @@ hr {
         justify-content: center !important;
         align-items: center !important;
     }
-
     .alt-image img {
         width: 100% !important;
-        max-width: 180px !important;
-        height: auto !important;
-        min-height: 140px !important;
+        max-width: 195px !important;
+        height: 170px !important;  
         object-fit: cover !important;
+        display: block;
+        margin-top: 12px;
     }
+
 }
