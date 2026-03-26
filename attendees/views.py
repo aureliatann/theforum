@@ -97,7 +97,7 @@ Your e-ticket is attached below.
 Event Details:
 - Date: Friday, April 10, 2026
 - Open Gate: 5:00 PM AEST
-- Location: Union Theatre, Arts & Cultural Building, The University of Melbourne
+- Location: Copland Theatre (B01), The Spot, University of Melboure
 - Dresscode: Batik / Formal
 
 Best regards,
@@ -118,7 +118,7 @@ We are pleased to confirm your registration for
 <ul>
     <li><strong>🗓️ Date:</strong> Friday, April 10, 2026</li>
     <li><strong>⏱️ Open Gate:</strong> 5:00 PM AEST</li>
-    <li><strong>📍 Location:</strong> Union Theatre, Arts & Cultural Building, The University of Melbourne</li>
+    <li><strong>📍 Location:</strong> Copland Theatre (B01), The Spot, University of Melboure</li>
     <li><strong>👔 Dresscode:</strong> Batik / Formal</li>
 </ul>
 
