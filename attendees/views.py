@@ -30,12 +30,12 @@ def personalize_eticket_from_pdf(pdf_path, name):
     overlay_stream = BytesIO()
     can = canvas.Canvas(overlay_stream, pagesize=(width, height))
 
-   # Set attendee name's font style, size, color, and position 
+   # Set attendee name's font style, size, color, and position
     can.setFont("Helvetica", 14)
     can.setFillColor(white)
     # Coordinates for where the name appears (bottom-left is 0,0)
-    x = 323
-    y = 143.5
+    x = 266
+    y = 165
 
     # Draw the attendee's name on the overlay
     can.drawString(x, y, name)
@@ -76,7 +76,7 @@ def register(request):
                 "static",
                 "attendees",
                 "pdf",
-                "eticket_template_2025.pdf"
+                "eticket_template_2026.pdf"
             )
 
             # Generate personalized PDF e-ticket
@@ -95,9 +95,9 @@ Thank you for registering for The Forum 2026.
 Your e-ticket is attached below.
 
 Event Details:
+- Location: Copland Theatre (B01), The Spot, University of Melboure
 - Date: Friday, April 10, 2026
 - Open Gate: 5:00 PM AEST
-- Location: Copland Theatre (B01), The Spot, University of Melboure
 - Dresscode: Batik / Formal
 
 Best regards,
@@ -109,26 +109,26 @@ The Forum Team
 <p>Dear <strong>{attendee.first_name}</strong>,</p>
 
 <p>
-We are pleased to confirm your registration for 
+We are pleased to confirm your registration for
 <strong>The Forum 2026</strong>. Your e-ticket is attached below.
 </p>
 
 <p><strong>Here are the event details for your reference:</strong></p>
 
 <ul>
+    <li><strong>📍 Location:</strong> Copland Theatre (B01), The Spot, University of Melboure</li>
     <li><strong>🗓️ Date:</strong> Friday, April 10, 2026</li>
     <li><strong>⏱️ Open Gate:</strong> 5:00 PM AEST</li>
-    <li><strong>📍 Location:</strong> Copland Theatre (B01), The Spot, University of Melboure</li>
     <li><strong>👔 Dresscode:</strong> Batik / Formal</li>
 </ul>
 
 <p>
-If you have any questions or require further assistance, 
+If you have any questions or require further assistance,
 please feel free to contact us anytime.
 </p>
 
 <p>
-We look forward to seeing you at the event and hope you enjoy an 
+We look forward to seeing you at the event and hope you enjoy an
 engaging and insightful experience.
 </p>
 
